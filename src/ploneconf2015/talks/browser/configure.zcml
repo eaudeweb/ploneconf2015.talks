@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="ploneconf2015.talks">
+
+    <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
+    <include package="z3c.jbot" file="meta.zcml" />
+    <browser:jbot
+        directory="overrides"
+        layer="ploneconf2015.talks.interfaces.IPloneconf2015TalksLayer"
+        />
+
+    <!-- Publish static files -->
+    <browser:resourceDirectory
+        name="ploneconf2015.talks"
+        directory="static"
+        />
+
+</configure>

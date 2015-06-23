@@ -1,0 +1,11 @@
+*.egg-info
+*.pyc
+*.pyo
+*.mo
+dist
+.eggs
+.project
+.pydevproject
+searchindex.js
+search.html
+lib

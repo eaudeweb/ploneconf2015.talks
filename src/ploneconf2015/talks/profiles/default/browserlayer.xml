@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<layers>
+  <layer
+    name="ploneconf2015.talks"
+    interface="ploneconf2015.talks.interfaces.IPloneconf2015TalksLayer"
+  />
+</layers>
