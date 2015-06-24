@@ -1,3 +1,0 @@
-graft src/ploneconf2015
-graft docs/
-include *.cfg *.rst *.in

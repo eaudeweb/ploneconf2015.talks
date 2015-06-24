@@ -1,4 +1,4 @@
-bobtemplates.plone Copyright 2015, Razvan Chitu
+ploneconf2015.talks Copyright 2015, Razvan Chitu
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 2

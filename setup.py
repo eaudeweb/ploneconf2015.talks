@@ -4,24 +4,10 @@
 from setuptools import find_packages
 from setuptools import setup
 
-
-long_description = (
-    open('README.rst').read()
-    + '\n' +
-    'Contributors\n'
-    '============\n'
-    + '\n' +
-    open('CONTRIBUTORS.rst').read()
-    + '\n' +
-    open('CHANGES.rst').read()
-    + '\n')
-
-
 setup(
     name='ploneconf2015.talks',
     version='1.0',
     description="Talks for Plone Conference 2015",
-    long_description=long_description,
     # Get more from http://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         "Environment :: Web Environment",
@@ -35,9 +21,8 @@ setup(
     author_email='razvan.ch95@gmail.com',
     url='https://github.com/eaudeweb/ploneconf2015.talks',
     license='GPL',
-    packages=find_packages('src', exclude=['ez_setup']),
+    packages=find_packages(exclude=['ez_setup']),
     namespace_packages=['ploneconf2015'],
-    package_dir={'': 'src'},
     include_package_data=True,
     zip_safe=False,
     install_requires=[
