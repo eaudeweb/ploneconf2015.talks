@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <object name="talk" meta_type="Dexterity FTI" i18n:domain="ploneconf2015"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
- <property name="title" i18n:translate="">Talk</property>
+ <property name="title" i18n:translate="">Author</property>
  <property name="description"
-    i18n:translate="">Plone Conference 2015 - Talks Submit</property>
+    i18n:translate="">Plone Conference 2015 - Author Information</property>
  <property name="icon_expr">string:${portal_url}/document_icon.png</property>
- <property name="factory">ploneconf2015.talks.content.talk</property>
- <property name="add_view_expr">string:${folder_url}/++add++talk</property>
+ <property name="factory">ploneconf2015.talks.content.author</property>
+ <property name="add_view_expr">string:${folder_url}/++add++author</property>
  <property name="link_target"></property>
  <property name="immediate_view">view</property>
  <property name="global_allow">True</property>
@@ -19,15 +19,16 @@
  </property>
  <property name="default_view_fallback">False</property>
  <property name="add_permission">cmf.AddPortalContent</property>
- <property name="klass">ploneconf2015.talks.content.talk.Talk</property>
+ <property name="klass">ploneconf2015.talks.content.author.Author</property>
  <property name="behaviors">
   <element value="plone.app.content.interfaces.INameFromTitle"/>
-  <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
+  <element value="plone.app.dexterity.behaviors.metadata.IBasic"/><!-- 
   <element value="plone.app.relationfield.behavior.IRelatedItems"/>
-  <element value="plone.app.dexterity.behaviors.metadata.IPublication"/>
+  <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/> -->
  </property>
+
  <property
-    name="schema">ploneconf2015.talks.content.interfaces.ITalk</property>
+    name="schema">ploneconf2015.talks.content.interfaces.IAuthor</property>
  <property name="model_file"></property>
  <property name="schema_policy">dexterity</property>
  <alias from="(Default)" to="(dynamic view)"/>

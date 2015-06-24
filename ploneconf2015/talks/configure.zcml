@@ -11,7 +11,7 @@
 
     <include package=".browser" />
     <include package=".content" />
-
+    <include package="plone.app.relationfield" />
 
     <genericsetup:registerProfile
         name="default"

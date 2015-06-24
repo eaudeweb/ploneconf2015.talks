@@ -8,27 +8,48 @@ from plone.supermodel import model
 class ITalk(model.Schema):
     """ Talk schema
     """
-    title = schema.Text(
-        title=u"Title",
+    target_audience = schema.TextLine(
+        title=u"Target audience",
         default=u"",
+        required=True
     )
 
-    summary = schema.Text(
-        title=u"Summary",
+    room = schema.TextLine(
+        title=u"Room",
         default=u"",
+        required=False
     )
 
-    author_name = schema.TextLine(
-        title=u"Author name",
-        default=u""
+
+class IAuthor(model.Schema):
+    """ Author schema
+    """
+    email = schema.TextLine(
+        title=u"E-mail Address",
+        default=u"",
+        required=True
     )
 
-    author_email = schema.TextLine(
-        title=u"Author email",
-        default=u""
+    country = schema.TextLine(
+        title=u"Country",
+        default=u"",
+        required=True
     )
 
-    about = schema.TextLine(
-        title=u"About the author",
-        default=u""
+    company = schema.TextLine(
+        title=u"Company / Organization",
+        default=u"",
+        required=False
+    )
+
+    twitter = schema.TextLine(
+        title=u"Twitter",
+        default=u"",
+        required=False
+    )
+
+    irc = schema.TextLine(
+        title=u"IRC",
+        default=u"",
+        required=False
     )
