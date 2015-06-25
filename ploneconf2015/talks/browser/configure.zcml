@@ -17,4 +17,12 @@
         directory="static"
         />
 
+    <browser:page
+        for="zope.interface.Interface"
+        name="submit-talk"
+        template="zpt/submit_talk.pt"
+        class=".app.submit_talk.SubmitTalk"
+        permission="zope2.Public"
+        />
+
 </configure>

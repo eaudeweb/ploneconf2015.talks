@@ -2,6 +2,7 @@ plone.api
 setuptools
 z3c.jbot
 plone.app.dexterity
+plone.app.relationfield
 
 [test]
 plone.app.testing

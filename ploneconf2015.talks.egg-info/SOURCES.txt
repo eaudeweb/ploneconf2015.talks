@@ -13,6 +13,9 @@ ploneconf2015/talks/__init__.py
 ploneconf2015/talks/interfaces.py
 ploneconf2015/talks/testing.py
 ploneconf2015/talks/browser/__init__.py
+ploneconf2015/talks/browser/app/__init__.py
+ploneconf2015/talks/browser/app/submit_talk.py
 ploneconf2015/talks/content/__init__.py
+ploneconf2015/talks/content/author.py
 ploneconf2015/talks/content/interfaces.py
 ploneconf2015/talks/content/talk.py

@@ -30,6 +30,7 @@ setup(
         'setuptools',
         'z3c.jbot',
         'plone.app.dexterity',
+        'plone.app.relationfield',
     ],
     extras_require={
         'test': [
