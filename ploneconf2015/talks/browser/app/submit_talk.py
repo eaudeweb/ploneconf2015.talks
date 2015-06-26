@@ -1,5 +1,5 @@
-''' Submit Talk view
-'''
+""" Submit Talk view
+"""
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from plone.dexterity.utils import createContentInContainer
@@ -7,6 +7,7 @@ from Products.CMFCore.interfaces import IFolderish
 from z3c.relationfield import RelationValue
 from zope.intid.interfaces import IIntIds
 from zope.component import getUtility
+from plone.namedfile.file import NamedBlobImage
 from datetime import datetime
 
 class SubmitTalk(BrowserView):
@@ -14,24 +15,24 @@ class SubmitTalk(BrowserView):
     """
 
     def submit(self):
-        (author, index) = self.create_author()
-        talk = self.create_talk(author, index)
-        return (author, talk)
+        (speaker, index) = self.create_speaker()
+        talk = self.create_talk(speaker, index)
+        return (speaker, talk)
 
-    def create_author(self):
+    def create_speaker(self):
         tool = getToolByName(self.context, u'portal_types')
-        author_info = tool.getTypeInfo(u'author')
+        speaker_info = tool.getTypeInfo(u'speaker')
 
-        if 'Authors' not in self.context.keys():
+        if 'Speakers' not in self.context.keys():
             folder_info = tool.getTypeInfo(u'Folder')
             folder_info._constructInstance(self.context,
-                    u'Authors', title=u'Authors')
+                    u'Speakers', title=u'Speakers')
 
         form = self.request.form
         for index in range(1, 10000):
             try:
-                author = author_info._constructInstance(
-                    self.context['Authors'], u'author%.3d' % index,
+                speaker = speaker_info._constructInstance(
+                    self.context['Speakers'], u'speaker%.3d' % index,
                     title=form['name'], description=form['about'],
                     email=form['email'], country=form['country'],
                     company=form['company'], twitter=form['twitter'],
@@ -39,9 +40,12 @@ class SubmitTalk(BrowserView):
             except Exception:
                 continue
             else:
-                return (author, index)
+                speaker.picture = NamedBlobImage(
+                            filename=u"%s picture" % form['name'],
+                            data=form['picture'].read())
+                return (speaker, index)
 
-    def create_talk(self, author, index):
+    def create_talk(self, speaker, index):
         tool = getToolByName(self.context, u'portal_types')
         talk_info = tool.getTypeInfo(u'talk')
 
@@ -57,11 +61,11 @@ class SubmitTalk(BrowserView):
             target_audience=form['talk_audience'])
 
         intids = getUtility(IIntIds)
-        talk.relatedItems = [RelationValue(intids.getId(author))]
+        talk.relatedItems = [RelationValue(intids.getId(speaker))]
         return talk
 
     def __call__(self, **kwargs):
         if self.request.method.lower() != 'post':
             return self.index()
 
-        (author, talk) = self.submit()
+        (speaker, talk) = self.submit()

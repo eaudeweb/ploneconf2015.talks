@@ -18,11 +18,11 @@
         />
 
     <browser:page
-        for="zope.interface.Interface"
+        for="ploneconf2015.talks.interfaces.ITalkStorage"
         name="submit-talk"
         template="zpt/submit_talk.pt"
         class=".app.submit_talk.SubmitTalk"
-        permission="zope2.Public"
+        permission="zope2.View"
         />
 
 </configure>

@@ -3,6 +3,6 @@
   i18n_domain="ploneconf2015">
 
   <interface interface="ploneconf2015.talks.content.interfaces.ITalk" />
-  <interface interface="ploneconf2015.talks.content.interfaces.IAuthor" />
+  <interface interface="ploneconf2015.talks.content.interfaces.ISpeaker" />
 
 </configure>

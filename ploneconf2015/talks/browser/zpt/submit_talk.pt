@@ -4,72 +4,93 @@
 
 <body>
 	<div metal:fill-slot="content-title"><h1>Submit a talk</h1></div>
-	<section metal:fill-slot="content-core">
-		<form tal:attributes="action string:${context/absolute_url}/${view/__name__}" method="post" name="submitTalk">
-			<h3> Who are you? </h3>
-				<fieldset>
-				 <label for="name">
-				 	Name
-				 </label>
-		         <input id="name" type="text" name="name"/>
-		         <br>
+	<section metal:fill-slot="content-core" class="ploneconf-tickets">
+		<div class="box box-form">
+			<form tal:attributes="action string:${context/absolute_url}/${view/__name__}" method="post" name="submitTalk" 
+              class="form form-table" enctype="multipart/form-data">
+				<h3> Who are you? </h3>
+					<fieldset>
+            		<div class="form-group col-sm-2">
+						 <label for="name">
+						 	Name
+						 </label>
+				         <input class="form-control" id="name" type="text" name="name"/>
+			        </div>
+			        <div class="form-group col-sm-2">
+			         <label for="email">
+					 	E-mail Address
+					 </label>
+			         <input class="form-control" id="email" type="email" name="email"/>
+			         </div>
+			         <div class="form-group col-sm-2">
+			         <label for="country">
+					 	Country
+					 </label>
+			         <input class="form-control" id="country" type="text" name="country"/>
+			         </div>
+			         <div class="form-group col-sm-2">
+			         <label for="company">
+					 	Company / Organization
+					 </label>
+			         <input class="form-control" id="company" type="text" name="company"/>
+			         </div>
 
-		         <label for="email">
-				 	E-mail Address
-				 </label>
-		         <input id="email" type="email" name="email"/>
-		         <br>
+			         <div class="form-group col-sm-2">
+			         <label for="twitter">
+					 	Twitter
+					 </label>
+			         <input class="form-control" id="twitter" type="text" name="twitter"/>
+			         </div>
 
-		         <label for="country">
-				 	Country
-				 </label>
-		         <input id="country" type="text" name="country"/>
-		         <br>
+			         <div class="form-group col-sm-2">
+				         <label for="IRC">
+						 	IRC
+						 </label>
+				         <input class="form-control" id="IRC" type="text" name="irc"/>
+			         </div>
 
-		         <label for="company">
-				 	Company / Organization
-				 </label>
-		         <input id="company" type="text" name="company"/>
-		         <br>
+			         <div class="form-group col-sm-6">
+						<label for="picture">
+							Picture
+						</label>
+						<br>
+    					<input class="form-control" id="picture" type="file" name="picture"/>
+			         </div> 
+			         <div class="form-group col-sm-6">
+			         <label for="about">
+					 	About
+					 </label>
+			         <textarea id="about" rows="1" cols="1" name="about"> </textarea>
+			         </div>
+			     </fieldset>
+			<h3> What do you want to talk about? </h3>
+			     <fieldset>
+			     	<div class="form-group col-sm-6">
+						 <label for="talk_title">
+						 	Title
+						 </label>
+				         <input id="talk_title" type="text" name="talk_title"/>
+			        </div>
 
-		         <label for="about">
-				 	About
-				 </label>
-		         <textarea id="about" rows="4" cols="5" name="about"> </textarea>
-		         <br>
+			        <div class="form-group col-sm-6">
+				         <label for="talk_audience">
+						 	Target Audience
+						 </label>
+				         <input id="talk_audience" type="text" name="talk_audience"/>
+			     	</div>
 
-		         <label for="twitter">
-				 	Twitter
-				 </label>
-		         <input id="twitter" type="text" name="twitter"/>
-
-		         <label for="IRC">
-				 	IRC
-				 </label>
-		         <input id="IRC" type="text" name="irc"/>
-		     </fieldset>
-		<h3> What do you want to talk about? </h3>
-		     <fieldset>
-				 <label for="talk_title">
-				 	Title
-				 </label>
-		         <input id="talk_title" type="text" name="talk_title"/>
-		         <br>
-
-		         <label for="talk_summary">
-				 	Summary
-				 </label>
-		         <textarea id="talk_summary" name="talk_summary">
-		         </textarea>
-		         <br>
-
-		         <label for="talk_audience">
-				 	Target Audience
-				 </label>
-		         <input id="talk_audience" type="text" name="talk_audience"/>
-		     </fieldset>
-            <button class="btn btn-link pull-left" type="submit">Submit form</button>
-		</form>
+			        <div class="form-group col-sm 2 box">
+				         <label for="talk_summary">
+						 	Summary
+						 </label>
+				         <textarea id="talk_summary" name="talk_summary">
+				         </textarea>
+			        </div>
+			     </fieldset>
+			     <br>
+	            <button class="btn btn-primary pull-right" type="submit">Submit Talk</button>
+			</form>
+		</div>
 	</section>
 </body>
 </html>

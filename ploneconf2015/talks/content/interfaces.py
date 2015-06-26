@@ -2,7 +2,12 @@
 """
 from zope import schema
 from zope.interface import Interface
+from plone.namedfile import field as namedfile
 from plone.supermodel import model
+
+class ITalkStorage(Interface):
+    """ Marker interface for talks storage
+    """
 
 
 class ITalk(model.Schema):
@@ -21,8 +26,8 @@ class ITalk(model.Schema):
     )
 
 
-class IAuthor(model.Schema):
-    """ Author schema
+class ISpeaker(model.Schema):
+    """ Speaker schema
     """
     email = schema.TextLine(
         title=u"E-mail Address",
@@ -52,4 +57,10 @@ class IAuthor(model.Schema):
         title=u"IRC",
         default=u"",
         required=False
+    )
+
+    picture = namedfile.NamedBlobImage(
+        title=u"Picture",
+        description=u"",
+        required=False,
     )
