@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+  metal:use-macro="here/main_template/macros/master"
+  i18n:domain="eea">
+
+<body>
+
+<div metal:fill-slot="content-core">
+  <section class="bootstrap">
+
+   	<!-- <h3 tal:content="view/name"> Speaker Name </h3> -->
+   	<p tal:content="view/email"> Speaker Email </p>
+   	<p tal:content="view/country"> Speaker Country </p>
+   	<span tal:condition="view/twitter">
+	   	<a class="btn btn-default" href="twitter link" tal:attributes="href python: 'https://twitter.com/' + view.twitter">
+	   		Twitter @<span tal:content="view/twitter"> Speaker Twitter Account </span>
+	   	</a>
+   </span>
+   <br>
+   <span tal:condition="view/git">
+	   	<a class="btn btn-default" href="git link" tal:attributes="href python: 'https://github.com/' + view.git">
+	   		Github 
+	   		<span tal:content="view/git">
+	   			Speaker GitHub Account
+	   		</span>
+	   	</a>
+   </span>
+  	<br>
+  	<span tal:condition="view/linkedin">
+	   	<a class="btn btn-default" href="linkedin link" tal:attributes="href view/linkedin">
+	   		Linkedin
+	   		<span tal:content="view/name">
+	   			Speaker Name
+	   		</span>
+	   	</a>
+   </span>
+  	<br>
+    <span tal:condition="view/image">
+    	<img src="speaker image" tal:attributes="src view/image">
+  	</span>
+  </section>
+</div>
+</body>
+</html>

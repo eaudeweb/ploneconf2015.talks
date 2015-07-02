@@ -1,0 +1,37 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:plone="http://namespaces.plone.org/plone">
+
+  <include package="plone.contentrules" file="meta.zcml" />
+  <include package="plone.app.contentrules" />
+
+  <!-- Content Rules events -->
+  <interface
+    interface="ploneconf2015.talks.events.interfaces.ISubmitTalkEvent"
+    type="plone.contentrules.rule.interfaces.IRuleEventType"
+    name="Submitted talk"
+    />
+
+  <!-- Content rules subscribers -->
+  <subscriber
+    for="ploneconf2015.talks.events.interfaces.ISubmitTalkEvent"
+    handler=".handlers.submit_talk"
+    />
+
+  <!-- Content rules strings -->
+  <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".adapters.TalkTitle"
+    name="stalk_title"
+    />
+
+  <adapter
+    for="*"
+    provides="plone.stringinterp.interfaces.IStringSubstitution"
+    factory=".adapters.SpeakerEmail"
+    name="stalk_speaker_email"
+    />
+
+</configure>

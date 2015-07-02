@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+  metal:use-macro="here/main_template/macros/master"
+  i18n:domain="eea">
+
+<body>
+
+<div metal:fill-slot="content-core">
+  <section class="bootstrap">
+  	<span tal:condition="python: view.speakers_and_talk">
+    <div tal:repeat="speakers_and_talk view/speakers_and_talk">
+    	<span tal:define="speakers python: speakers_and_talk[0]; talk python: speakers_and_talk[1];">
+		<h3>
+			<span tal:content="talk/title">
+			Title
+			</span>
+		</h3>
+			<ul class="list-inline">
+			<li tal:repeat="speaker speakers">
+				<a href="speaker page url" tal:attributes="href speaker/absolute_url">
+					<span tal:content="speaker/title"> Speaker </span>
+				</a>
+			</li>
+			</ul>
+		<p tal:content="talk/description"> Summary </p>
+		</span>
+		<br>
+	</div>
+	</span>
+	<span tal:condition="python: not view.speakers_and_talk">
+		<h3> There are no confirmed talks at the moment. </h3>
+	</span>
+  </section>
+
+</div>
+
+</body>
+</html>

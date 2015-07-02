@@ -14,8 +14,16 @@ ploneconf2015/talks/interfaces.py
 ploneconf2015/talks/testing.py
 ploneconf2015/talks/browser/__init__.py
 ploneconf2015/talks/browser/app/__init__.py
+ploneconf2015/talks/browser/app/list_talks.py
+ploneconf2015/talks/browser/app/speaker.py
 ploneconf2015/talks/browser/app/submit_talk.py
 ploneconf2015/talks/content/__init__.py
-ploneconf2015/talks/content/author.py
 ploneconf2015/talks/content/interfaces.py
+ploneconf2015/talks/content/speaker.py
 ploneconf2015/talks/content/talk.py
+ploneconf2015/talks/events/__init__.py
+ploneconf2015/talks/events/interfaces.py
+ploneconf2015/talks/events/submit_talk.py
+ploneconf2015/talks/rules/__init__.py
+ploneconf2015/talks/rules/adapters.py
+ploneconf2015/talks/rules/handlers.py

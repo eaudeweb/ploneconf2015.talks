@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<contentrules>
+
+   <rule name="submitted_talk_confirmation" title="Submitted talks confirmation email"
+      cascading="False" description="" enabled="True"
+      event="ploneconf2015.talks.events.interfaces.ISubmitTalkEvent"
+      stop-after="False">
+    <conditions/>
+    <actions>
+     <action type="plone.actions.Mail">
+      <property name="source"/>
+      <property
+         name="message">Your talk ${stalk_title} has been submitted for approval.</property>
+      <property name="subject">Submission confirmation</property>
+      <property name="recipients">${stalk_speaker_email}</property>
+      <property name="exclude_actor">False</property>
+     </action>
+    </actions>
+   </rule>
+   <assignment name="submitted_talk_confirmation" bubbles="True" enabled="True"
+      location="/submitted-talks"/>
+
+</contentrules>

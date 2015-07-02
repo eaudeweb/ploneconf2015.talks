@@ -8,18 +8,19 @@ from z3c.relationfield import RelationValue
 from zope.intid.interfaces import IIntIds
 from zope.component import getUtility
 from plone.namedfile.file import NamedBlobImage
-from datetime import datetime
+from zope.container.interfaces import INameChooser
+from ploneconf2015.talks.events.submit_talk import SubmitTalkEvent
+from zope.event import notify
+import requests
 
 class SubmitTalk(BrowserView):
     """ Submit Talk view
     """
 
     def submit(self):
-        (speaker, index) = self.create_speaker()
-        talk = self.create_talk(speaker, index)
-        return (speaker, talk)
+        self.create_talk(speakers=self.create_speakers())
 
-    def create_speaker(self):
+    def create_speakers(self):
         tool = getToolByName(self.context, u'portal_types')
         speaker_info = tool.getTypeInfo(u'speaker')
 
@@ -29,23 +30,24 @@ class SubmitTalk(BrowserView):
                     u'Speakers', title=u'Speakers')
 
         form = self.request.form
-        for index in range(1, 10000):
-            try:
-                speaker = speaker_info._constructInstance(
-                    self.context['Speakers'], u'speaker%.3d' % index,
-                    title=form['name'], description=form['about'],
-                    email=form['email'], country=form['country'],
-                    company=form['company'], twitter=form['twitter'],
-                    irc=form['irc'])
-            except Exception:
-                continue
-            else:
-                speaker.picture = NamedBlobImage(
-                            filename=u"%s picture" % form['name'],
-                            data=form['picture'].read())
-                return (speaker, index)
+        speakers = []
+        for index in range(0, 100):
+            if 'speaker_name' + str(index) not in form:
+                break
+            speakers.append(speaker_info._constructInstance(
+                self.context['Speakers'],
+                id=INameChooser(self.context['Speakers']).chooseName(form['speaker_name' + str(index)], self.context),
+                title=form['speaker_name' + str(index)], description=form['speaker_about' + str(index)],
+                email=form['speaker_email' + str(index)], country=form['speaker_country' + str(index)],
+                company=form['speaker_company' + str(index)], twitter=form['speaker_twitter' + str(index)],
+                git=form['speaker_git' + str(index)], linkedin=form['speaker_linkedin' + str(index)]))
+            speakers[index].image = NamedBlobImage(
+                        filename=u"%s image" % form['speaker_name' + str(index)],
+                        data=requests.get(form['speaker_image' + str(index)]).content)
 
-    def create_talk(self, speaker, index):
+        return speakers
+
+    def create_talk(self, speakers):
         tool = getToolByName(self.context, u'portal_types')
         talk_info = tool.getTypeInfo(u'talk')
 
@@ -56,16 +58,18 @@ class SubmitTalk(BrowserView):
 
         form = self.request.form
         talk = talk_info._constructInstance(
-            self.context['Talks'], u'talk%.3d' % index,
+            self.context['Talks'],
+            id=INameChooser(self.context['Talks']).chooseName(form['talk_title'], self.context),
             title=form['talk_title'], description=form['talk_summary'],
             target_audience=form['talk_audience'])
 
         intids = getUtility(IIntIds)
-        talk.relatedItems = [RelationValue(intids.getId(speaker))]
-        return talk
+        talk.relatedItems = [RelationValue(intids.getId(speaker)) for speaker in speakers]
+
+        notify(SubmitTalkEvent(context=talk))
 
     def __call__(self, **kwargs):
         if self.request.method.lower() != 'post':
             return self.index()
-
-        (speaker, talk) = self.submit()
+        self.submit()
+        self.request.response.redirect(self.context.absolute_url() + '/thank-you')

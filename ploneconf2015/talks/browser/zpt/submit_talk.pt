@@ -3,93 +3,134 @@
   i18n:domain="eea">
 
 <body>
-	<div metal:fill-slot="content-title"><h1>Submit a talk</h1></div>
-	<section metal:fill-slot="content-core" class="ploneconf-tickets">
-		<div class="box box-form">
-			<form tal:attributes="action string:${context/absolute_url}/${view/__name__}" method="post" name="submitTalk" 
-              class="form form-table" enctype="multipart/form-data">
-				<h3> Who are you? </h3>
-					<fieldset>
-            		<div class="form-group col-sm-2">
-						 <label for="name">
-						 	Name
-						 </label>
-				         <input class="form-control" id="name" type="text" name="name"/>
-			        </div>
-			        <div class="form-group col-sm-2">
-			         <label for="email">
-					 	E-mail Address
-					 </label>
-			         <input class="form-control" id="email" type="email" name="email"/>
-			         </div>
-			         <div class="form-group col-sm-2">
-			         <label for="country">
-					 	Country
-					 </label>
-			         <input class="form-control" id="country" type="text" name="country"/>
-			         </div>
-			         <div class="form-group col-sm-2">
-			         <label for="company">
-					 	Company / Organization
-					 </label>
-			         <input class="form-control" id="company" type="text" name="company"/>
-			         </div>
+	<div metal:fill-slot="content-title">
+	<h1>Submit a talk</h1></div>
+	<section metal:fill-slot="content-core" ng-app="PloneConfTalks" ng-controller="PloneConfTalksSubmit">
+		<div class="row">
+			<div class="col-sm-9">
+				<div class="box box-form">
+					<form tal:attributes="action string:${context/absolute_url}/${view/__name__}" method="post" name="submitTalk" 
+		              class="form form-table" enctype="multipart/form-data" novalidate>
+					<h3> What do you want to talk about? {{ submitTalk.$submitted }}</h3>
+					     <fieldset>
+					     	<div class="form-group col-sm-6">
+								 <label for="talk_title">
+								 	Title
+								 	<span class="required" ng-show="submitTalk.talk_title.$error.required" />
+								 </label>
+						         <input id="talk_title" type="text" name="talk_title" ng-model="talk.title" ng-readonly="talk_disabled" required/>
+					        </div>
 
-			         <div class="form-group col-sm-2">
-			         <label for="twitter">
-					 	Twitter
-					 </label>
-			         <input class="form-control" id="twitter" type="text" name="twitter"/>
-			         </div>
+					        <div class="form-group col-sm-6">
+						         <label for="talk_audience">
+								 	Target Audience
+								 	<span class="required" ng-show="submitTalk.talk_audience.$error.required" />
+								 </label>
+						         <input id="talk_audience" type="text" name="talk_audience" ng-model="talk.audience" ng-readonly="talk_disabled" required/>
+					     	</div>
 
-			         <div class="form-group col-sm-2">
-				         <label for="IRC">
-						 	IRC
-						 </label>
-				         <input class="form-control" id="IRC" type="text" name="irc"/>
-			         </div>
+					        <div class="form-group col-sm-12">
+						         <label for="talk_summary">
+								 	Summary
+								 	<span class="required" ng-show="submitTalk.talk_summary.$error.required"/>
+								 </label>
+						         <textarea id="talk_summary" name="talk_summary" ng-model="talk.summary" ng-readonly="talk_disabled" required>
+						         </textarea>
+					        </div>
+					     </fieldset>
+					     <br>
+					     <button type="button" class="btn btn-default pull-left" ng-click="talk={}" ng-show="!talk_disabled"> Reset talk details </button>
+					     <button type="button" class="btn btn-primary pull-right" ng-click="disableTalk()" ng-disabled="!talkValid()" ng-show="!talk_disabled"> Next step </button>
+					     <button type="button" class="btn btn-primary pull-right" ng-click="enableTalk()" ng-show="talk_disabled"> Previous step </button> 
+					     <br>
+					     <br>
+					     <span ng-show="talk_disabled">
+					     	<span ng-repeat="n in repeat(number_of_speakers)">
+					            <h3> Who are you? </h3>
+									<fieldset>
+					        		<div class="form-group col-sm-4">
+										 <label for="speaker_name{{ n }}">
+										 	Name
+										 	<span class="required" ng-show="submitTalk.speaker_name{{ n }}.$error.required" />
+										 </label>
+								         <input class="form-control" id="speaker_name{{ n }}" type="text" name="speaker_name{{ n }}" ng-model="speakers[n].name" required/>
+							        </div>
 
-			         <div class="form-group col-sm-6">
-						<label for="picture">
-							Picture
-						</label>
-						<br>
-    					<input class="form-control" id="picture" type="file" name="picture"/>
-			         </div> 
-			         <div class="form-group col-sm-6">
-			         <label for="about">
-					 	About
-					 </label>
-			         <textarea id="about" rows="1" cols="1" name="about"> </textarea>
-			         </div>
-			     </fieldset>
-			<h3> What do you want to talk about? </h3>
-			     <fieldset>
-			     	<div class="form-group col-sm-6">
-						 <label for="talk_title">
-						 	Title
-						 </label>
-				         <input id="talk_title" type="text" name="talk_title"/>
-			        </div>
+							        <div class="form-group col-sm-4">
+								         <label for="speaker_email{{ n }}">
+										 	E-mail Address
+											 <span class="required" ng-show="submitTalk.speaker_email{{ n }}.$error.required" />
+										 </label>
+								         <input class="form-control" id="speaker_email{{ n }}" type="email" name="speaker_email{{ n }}" ng-model="speakers[n].email" required/>
+							         </div>
 
-			        <div class="form-group col-sm-6">
-				         <label for="talk_audience">
-						 	Target Audience
-						 </label>
-				         <input id="talk_audience" type="text" name="talk_audience"/>
-			     	</div>
+							         <div class="form-group col-sm-4">
+								         <label for="speaker_country{{ n }}">
+										 	Country
+											<span class="required" ng-show="submitTalk.speaker_country{{ n }}.$error.required" />
+										 </label>
+								         <input class="form-control" id="speaker_country{{ n }}" type="text" name="speaker_country{{ n }}" ng-model="speakers[n].country" required/>
+							         </div>
 
-			        <div class="form-group col-sm 2 box">
-				         <label for="talk_summary">
-						 	Summary
-						 </label>
-				         <textarea id="talk_summary" name="talk_summary">
-				         </textarea>
-			        </div>
-			     </fieldset>
-			     <br>
-	            <button class="btn btn-primary pull-right" type="submit">Submit Talk</button>
-			</form>
+							         <div class="form-group col-sm-4">
+								         <label for="speaker_company{{ n }}">
+										 	Company / Organization
+											<span class="required" ng-show="submitTalk.speaker_company{{ n }}.$error.required"/>
+										 </label>
+								         <input class="form-control" id="speaker_company{{ n }}" type="text" name="speaker_company{{ n }}" ng-model="speakers[n].company" required/>
+							         </div>
+
+							         <div class="form-group col-sm-4">
+								         <label for="speaker_twitter{{ n }}">
+										 	Twitter
+										 </label>
+								         <input class="form-control" id="speaker_twitter{{ n }}" type="text" name="speaker_twitter{{ n }}" ng-model="speakers[n].twitter" ng-blur="tryGetTwitterPhotoLink(n)"/>
+							         </div>
+
+							         <div class="form-group col-sm-4">
+								         <label for="speaker_git{ n }}">
+										 	GitHub account
+										 </label>
+								         <input class="form-control" id="speaker_git{{ n }}" type="text" name="speaker_git{{ n }}" ng-model="speakers[n].git" ng-blur="tryGetGitPhotoLink(n)"/>
+							         </div>
+
+							         <div class="form-group col-sm-4">
+								         <label for="speaker_linkedin{ n }}">
+										 	LinkedIn account
+										 </label>
+								         <input class="form-control" id="speaker_linkedin{{ n }}" type="url" name="speaker_linkedin{{ n }}" ng-model="speakers[n].linkedin"/>
+							         </div>
+							         
+							         <div class="form-group col-sm-8">
+								         <label for="speaker_about{{ n }}">
+										 	About
+										 </label>
+								         <textarea id="speaker_about{{ n }}" rows="1" cols="1" name="speaker_about{{ n }}" ng-model="speakers[n].about" > </textarea>
+							         </div>
+
+							         <div class="form-group col-sm-12" ng-show="speakers[n].git_image_url || speakers[n].twitter_image_url">
+							         	<label>
+							         		Picture preview
+							         	</label>
+							         	<br>
+										<img ng-src="{{ speakers[n].twitter_image_url }}" ng-show="speakers[n].twitter_image_url" class="{{ speakers[n].twitter_image_selected }} col-xs-4" ng-click="selectTwitterImage(n)">
+										<img ng-src="{{ speakers[n].git_image_url }}" ng-show="speakers[n].git_image_url" class="{{ speakers[n].git_image_selected }} col-xs-4 col-xs-offset-4" ng-click="selectGitImage(n)">
+										<input id="speaker_image{{ n }}" name="speaker_image{{ n }}" type="text" ng-hide="true" value="{{ speakers[n].image_url }}">
+							         </div>
+							     </fieldset>
+							     <br>
+					        	<button type="submit" class="btn btn-primary pull-right" ng-disabled="!submitTalk.$valid" ng-show="isTerminal(n)">Submit Talk</button>		        	
+					        	<button type="button" class="btn btn-default pull-right" ng-click="increaseNumberOfSpeakers()" ng-show="isTerminal(n)">Add another speaker</button>
+					        	<button type="button" class="btn btn-danger pull-right" ng-click="decreaseNumberOfSpeakers()" ng-show="isCoSpeaker(n)">Cancel</button>
+							    <button type="button" class="btn btn-default pull-left" ng-click="speakers[n]={}" ng-show="talk_disabled"> Reset details </button>
+							    <br>
+							   	<br>
+							   	<br>
+							   	</span>
+							</span>
+					</form>
+				</div>
+			</div>
 		</div>
 	</section>
 </body>

@@ -53,13 +53,19 @@ class ISpeaker(model.Schema):
         required=False
     )
 
-    irc = schema.TextLine(
-        title=u"IRC",
+    git = schema.TextLine(
+        title=u"GitHub account",
         default=u"",
         required=False
     )
 
-    picture = namedfile.NamedBlobImage(
+    linkedin = schema.TextLine(
+        title=u"LinkedIn",
+        default=u"",
+        required=False
+    )
+
+    image = namedfile.NamedBlobImage(
         title=u"Picture",
         description=u"",
         required=False,

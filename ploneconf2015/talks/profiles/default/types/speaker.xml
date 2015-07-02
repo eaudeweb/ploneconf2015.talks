@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<object name="talk" meta_type="Dexterity FTI" i18n:domain="ploneconf2015"
+<object name="speaker" meta_type="Dexterity FTI" i18n:domain="ploneconf2015"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title" i18n:translate="">Speaker</property>
  <property name="description"
@@ -13,18 +13,16 @@
  <property name="filter_content_types">True</property>
  <property name="allowed_content_types"/>
  <property name="allow_discussion">False</property>
- <property name="default_view">view</property>
+ <property name="default_view">speaker-view</property>
  <property name="view_methods">
-  <element value="view"/>
+  <element value="speaker-view"/>
  </property>
  <property name="default_view_fallback">False</property>
  <property name="add_permission">cmf.AddPortalContent</property>
  <property name="klass">ploneconf2015.talks.content.speaker.Speaker</property>
  <property name="behaviors">
   <element value="plone.app.content.interfaces.INameFromTitle"/>
-  <element value="plone.app.dexterity.behaviors.metadata.IBasic"/><!-- 
-  <element value="plone.app.relationfield.behavior.IRelatedItems"/>
-  <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/> -->
+  <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
  </property>
 
  <property

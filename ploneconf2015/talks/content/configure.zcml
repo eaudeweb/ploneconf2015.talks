@@ -2,7 +2,6 @@
   xmlns="http://namespaces.zope.org/zope"
   i18n_domain="ploneconf2015">
 
-  <interface interface="ploneconf2015.talks.content.interfaces.ITalk" />
-  <interface interface="ploneconf2015.talks.content.interfaces.ISpeaker" />
+  <interface interface="ploneconf2015.talks.content.interfaces.ITalkStorage" />
 
 </configure>
