@@ -122,7 +122,7 @@
 					        	<button type="submit" class="btn btn-primary pull-right" ng-disabled="!submitTalk.$valid" ng-show="isTerminal(n)">Submit Talk</button>		        	
 					        	<button type="button" class="btn btn-default pull-right" ng-click="increaseNumberOfSpeakers()" ng-show="isTerminal(n)">Add another speaker</button>
 					        	<button type="button" class="btn btn-danger pull-right" ng-click="decreaseNumberOfSpeakers()" ng-show="isCoSpeaker(n)">Cancel</button>
-							    <button type="button" class="btn btn-default pull-left" ng-click="speakers[n]={}" ng-show="talk_disabled"> Reset details </button>
+							    <button type="button" class="btn btn-default pull-left" ng-click="speakers[n]={}; speakers[n].email=''" ng-show="talk_disabled"> Reset details </button>
 							    <br>
 							   	<br>
 							   	<br>
