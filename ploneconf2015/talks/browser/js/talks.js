@@ -43,9 +43,9 @@ PloneConfTalks
 
     $scope.tryGetGitPhotoLink = function(num) {
       if($scope.speakers[num] && $scope.speakers[num].git) {
-        if($scope.speakers[num].git.includes("github.com")) {
+        if($scope.speakers[num].git.indexOf("github.com") > -1) {
           var input = $scope.speakers[num].git.split("/");
-          if(input[0].includes("http")) {
+          if(input[0].indexOf("http") > -1) {
             $scope.speakers[num].git = input[3];
           }
           else {
@@ -65,9 +65,9 @@ PloneConfTalks
 
     $scope.tryGetTwitterPhotoLink = function(num) {
       if($scope.speakers[num] && $scope.speakers[num].twitter) {
-        if($scope.speakers[num].twitter.includes("twitter.com")) {
+        if($scope.speakers[num].twitter.indexOf("twitter.com") > -1) {
           var input = $scope.speakers[num].twitter.split("/");
-          if(input[0].includes("http")) {
+          if(input[0].indexOf("http") > -1) {
             $scope.speakers[num].twitter = input[3];
           }
           else {
