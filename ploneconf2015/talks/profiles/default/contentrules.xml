@@ -18,6 +18,6 @@
     </actions>
    </rule>
    <assignment name="submitted_talk_confirmation" bubbles="True" enabled="True"
-      location="/submitted-talks"/>
+      location=""/>
 
 </contentrules>

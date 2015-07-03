@@ -25,6 +25,7 @@ PloneConfTalks
 
     $scope.decreaseNumberOfSpeakers = function() {
       $scope.number_of_speakers = $scope.number_of_speakers - 1;
+      $scope.speakers.pop();
     };
 
     $scope.disableTalk = function() {

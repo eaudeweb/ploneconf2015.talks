@@ -32,6 +32,7 @@ setup(
         'z3c.jbot',
         'plone.app.dexterity',
         'plone.app.relationfield',
+        'collective.js.angular',
     ],
     extras_require={
         'test': [

@@ -11,7 +11,7 @@
 				<div class="box box-form">
 					<form tal:attributes="action string:${context/absolute_url}/${view/__name__}" method="post" name="submitTalk" 
 		              class="form form-table" enctype="multipart/form-data" novalidate>
-					<h3> What do you want to talk about? {{ submitTalk.$submitted }}</h3>
+					<h3> What do you want to talk about? </h3>
 					     <fieldset>
 					     	<div class="form-group col-sm-6">
 								 <label for="talk_title">
@@ -21,13 +21,36 @@
 						         <input id="talk_title" type="text" name="talk_title" ng-model="talk.title" ng-readonly="talk_disabled" required/>
 					        </div>
 
-					        <div class="form-group col-sm-6">
-						         <label for="talk_audience">
-								 	Target Audience
-								 	<span class="required" ng-show="submitTalk.talk_audience.$error.required" />
-								 </label>
-						         <input id="talk_audience" type="text" name="talk_audience" ng-model="talk.audience" ng-readonly="talk_disabled" required/>
-					     	</div>
+                            <h5 class="legend">
+                              What's your target audience?
+                              <span class="required" ng-show="submitTalk.talk_audience.$error.required" />
+                            </h5>
+                            <div class="form-radios">
+                              <label for="New to Plone" ng-class="{is_selected: talk.audience === 'New to Plone'}">
+                                <span class="icon icon-tshirt icon-block"></span>
+                                <input type="radio" id="New to Plone" name="talk_audience"
+                                       value="New to Plone"
+                                       ng-model="talk.audience" required> New to Plone
+                              </label>
+                              <label for="Plone Integrators" ng-class="{is_selected: talk.audience === 'Plone Integrators'}">
+                                <span class="icon icon-tshirt icon-block"></span>
+                                <input type="radio" id="Plone Integrators" name="talk_audience"
+                                       value="Plone Integrators"
+                                       ng-model="talk.audience" required> Plone Integrators
+                              </label>
+                              <label for="Plone Developers" ng-class="{is_selected: talk.audience === 'Plone Developers'}">
+                                <span class="icon icon-tshirt icon-block"></span>
+                                <input type="radio" id="Plone Developers" name="talk_audience"
+                                       value="Plone Developers"
+                                       ng-model="talk.audience" required checked="true"> Plone Developers
+                              </label>
+                              <label for="Case Studies" ng-class="{is_selected: talk.audience === 'Case Studies'}">
+                                <span class="icon icon-tshirt icon-block"></span>
+                                <input type="radio" id="Case Studies" name="talk_audience"
+                                       value="Case Studies"
+                                       ng-model="talk.audience" required checked="true"> Case Studies
+                              </label>
+                            </div>
 
 					        <div class="form-group col-sm-12">
 						         <label for="talk_summary">
@@ -71,13 +94,20 @@
 										 </label>
 								         <input class="form-control" id="speaker_country{{ n }}" type="text" name="speaker_country{{ n }}" ng-model="speakers[n].country" required/>
 							         </div>
+                                     
+                                     <div class="form-group col-sm-8">
+                                         <label for="speaker_about{{ n }}">
+                                            About
+                                            <span class="required" ng-show="submitTalk.speaker_about{{ n }}.$error.required"/>
+                                         </label>
+                                         <textarea id="speaker_about{{ n }}" rows="1" cols="1" name="speaker_about{{ n }}" ng-model="speakers[n].about" required> </textarea>
+                                     </div>
 
 							         <div class="form-group col-sm-4">
 								         <label for="speaker_company{{ n }}">
 										 	Company / Organization
-											<span class="required" ng-show="submitTalk.speaker_company{{ n }}.$error.required"/>
 										 </label>
-								         <input class="form-control" id="speaker_company{{ n }}" type="text" name="speaker_company{{ n }}" ng-model="speakers[n].company" required/>
+								         <input class="form-control" id="speaker_company{{ n }}" type="text" name="speaker_company{{ n }}" ng-model="speakers[n].company"/>
 							         </div>
 
 							         <div class="form-group col-sm-4">
@@ -99,13 +129,6 @@
 										 	LinkedIn account
 										 </label>
 								         <input class="form-control" id="speaker_linkedin{{ n }}" type="url" name="speaker_linkedin{{ n }}" ng-model="speakers[n].linkedin"/>
-							         </div>
-							         
-							         <div class="form-group col-sm-8">
-								         <label for="speaker_about{{ n }}">
-										 	About
-										 </label>
-								         <textarea id="speaker_about{{ n }}" rows="1" cols="1" name="speaker_about{{ n }}" ng-model="speakers[n].about" > </textarea>
 							         </div>
 
 							         <div class="form-group col-sm-12" ng-show="speakers[n].git_image_url || speakers[n].twitter_image_url">
