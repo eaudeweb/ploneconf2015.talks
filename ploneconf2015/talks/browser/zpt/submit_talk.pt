@@ -63,77 +63,64 @@
                                        ng-model="talk.audience" required checked="true"> Case Studies
                               </label>
                             </div>					        
-					     </fieldset>
-					     <span ng-repeat="n in repeat(number_of_speakers)">
-						     <fieldset >
-						     	<h5 class="legend">
-						     		Who are you?
-						     	</h5>
-						     	<div class="form-group col-sm-6">
-						     		<label for="speaker_name{{ n }}">
-						     			Name
-						     			<span class="required" ng-show="submitTalk.speaker_name{{ n }}.$error.required" />
-						     		</label>
-						     		<input class="form-control" id="speaker_name{{ n }}" type="text" name="speaker_name{{ n }}" ng-model="speakers[n].name" required/>
-						     	</div>
-
-						     	<div class="form-group col-sm-6">
-						     		<label for="speaker-email{{ n }}"> 
-						     			E-mail 
-						     			<span class="required" ng-show="submitTalk.speaker_email{{ n }}.$error.required" />
-						     		</label>
-						     		<input class="form-control" id="speaker_email{{ n }}" type="email" name="speaker_email{{ n }}" ng-model="speakers[n].email" required/>
-						     	</div>
-
-						     	<div class="form-group col-sm-12">
-						     		<label for="speaker_about{{ n }}">
-						     			About
-						     			<span class="required" ng-show="submitTalk.speaker_about{{ n }}.$error.required"/>
-						     		</label>
-						     		<textarea id="speaker_about{{ n }}" rows="1" cols="1" name="speaker_about{{ n }}" ng-model="speakers[n].about" required> 
-						     		</textarea>
-						     	</div>
-
-						     	<div class="form-group col-sm-6">
-						     		<label for="speaker_company{{ n }}">
-						     			Company/Organization
-						     		</label>
-						     		<input class="form-control" id="speaker_company{{ n }}" type="text" name="speaker_company{{ n }}" ng-model="speakers[n].company"/>
-						     	</div>
-
-						     	<div class="form-group col-sm-6">
-						     		<label for="speaker_country{{ n }}">
-						     			Country
-						     		</label>
-						     		<input class="form-control" id="speaker_country{{ n }}" type="text" name="speaker_country{{ n }}" ng-model="speakers[n].country" required/>
-						     	</div>
-						     </fieldset>
-						     <fieldset>
-						     	<h5 class="legend">
-						     		Text
-						     	</h5>
-						     	<div class="form-group col-sm-4">
-						     		<label for="speaker_twitter{{ n }}">
-						     			Twitter
-						     		</label>
-						     		<input class="form-control" id="speaker_twitter{{ n }}" type="text" name="speaker_twitter{{ n }}" ng-model="speakers[n].twitter" ng-blur="tryGetTwitterPhotoLink(n)"/>
-						     	</div>
-
-						     	<div class="form-group col-sm-4">
-						     		<label for="speaker_git{{ n }}">
-						     			GitHub account
-						     		</label>
-						     		<input class="form-control" id="speaker_git{{ n }}" type="text" name="speaker_git{{ n }}" ng-model="speakers[n].git" ng-blur="tryGetGitPhotoLink(n)"/> 
-						     	</div>
-
-						     	<div class="form-group col-sm-4">
-						     		<label for="speaker_linkedin{{ n}}">
-						     			LinkedIn account
-						     		</label>
-						     		<input class="form-control" id="speaker_linkedin{{ n }}" type="url" name="speaker_linkedin{{ n }}" ng-model="speakers[n].linkedin"/>
-						     	</div>
-						     </fieldset>
-							</span>
+					    </fieldset>
+					    <fieldset ng-repeat="n in repeat(number_of_speakers)">
+					     	<h5 class="legend">
+						     	Who are you?
+						     </h5>
+						     <div class="form-group col-sm-6">
+						     	<label for="speaker_name{{ n }}">
+						     		Name
+						     		<span class="required" ng-show="submitTalk.speaker_name{{ n }}.$error.required" />
+						     	</label>
+						     	<input class="form-control" id="speaker_name{{ n }}" type="text" name="speaker_name{{ n }}" ng-model="speakers[n].name" required/>
+						     </div>
+						     <div class="form-group col-sm-6">
+						     	<label for="speaker-email{{ n }}"> 
+						     		E-mail 
+						     		<span class="required" ng-show="submitTalk.speaker_email{{ n }}.$error.required" />
+						     	</label>
+						     	<input class="form-control" id="speaker_email{{ n }}" type="email" name="speaker_email{{ n }}" ng-model="speakers[n].email" required/>
+						     </div>
+						     <div class="form-group col-sm-12">
+						     	<label for="speaker_about{{ n }}">
+						     		About
+						     		<span class="required" ng-show="submitTalk.speaker_about{{ n }}.$error.required"/>
+						     	</label>
+						     	<textarea id="speaker_about{{ n }}" rows="1" cols="1" name="speaker_about{{ n }}" ng-model="speakers[n].about" required> 
+						     	</textarea>
+						     </div>
+						     <div class="form-group col-sm-6">
+						     	<label for="speaker_company{{ n }}">
+						     		Company/Organization
+						     	</label>
+						     	<input class="form-control" id="speaker_company{{ n }}" type="text" name="speaker_company{{ n }}" ng-model="speakers[n].company"/>
+						     </div>
+						     <div class="form-group col-sm-6">
+						     	<label for="speaker_country{{ n }}">
+						     		Country
+						     	</label>
+						     	<input class="form-control" id="speaker_country{{ n }}" type="text" name="speaker_country{{ n }}" ng-model="speakers[n].country" required/>
+						     </div>						     
+						     <div class="form-group col-sm-4">
+						     	<label for="speaker_twitter{{ n }}">
+						     		Twitter
+						     	</label>
+						     	<input class="form-control" id="speaker_twitter{{ n }}" type="text" name="speaker_twitter{{ n }}" ng-model="speakers[n].twitter" ng-blur="tryGetTwitterPhotoLink(n)"/>
+						     </div>
+						     <div class="form-group col-sm-4">
+						     	<label for="speaker_git{{ n }}">
+						     		GitHub account
+						     	</label>
+						     	<input class="form-control" id="speaker_git{{ n }}" type="text" name="speaker_git{{ n }}" ng-model="speakers[n].git" ng-blur="tryGetGitPhotoLink(n)"/>
+						     </div>
+						     <div class="form-group col-sm-4">
+						     	<label for="speaker_linkedin{{ n}}">
+						     		LinkedIn account
+						     	</label>
+						     	<input class="form-control" id="speaker_linkedin{{ n }}" type="url" name="speaker_linkedin{{ n }}" ng-model="speakers[n].linkedin"/>
+						     </div>
+						    </fieldset>
 							<div class="form-toolbar">
 								<button type="reset" class="btn btn-link pull-left" ng-click="talk={}; speakers=[]"> Reset talk details </button>			
 								<button type="button" class="btn btn-primary pull-right" ng-click="increaseNumberOfSpeakers()" >Add another speaker{{n}}</button>
