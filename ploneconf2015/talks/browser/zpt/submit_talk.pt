@@ -119,15 +119,29 @@
 						     		LinkedIn account
 						     	</label>
 						     	<input class="form-control" id="speaker_linkedin{{ n }}" type="url" name="speaker_linkedin{{ n }}" ng-model="speakers[n].linkedin"/>
-						     </div>
+						     </div>							
+							<div class="form-group col-sm-12" ng-show="speakers[n].git_image_url || speakers[n].twitter_image_url">
+				         		<label>
+				         			Picture preview
+				         		</label>
+				         		<br>
+								<img ng-src="{{ speakers[n].twitter_image_url }}" ng-show="speakers[n].twitter_image_url" class="{{ speakers[n].twitter_image_selected }} col-xs-4" ng-click="selectTwitterImage(n)">
+								<img ng-src="{{ speakers[n].git_image_url }}" ng-show="speakers[n].git_image_url" class="{{ speakers[n].git_image_selected }} col-xs-4" ng-click="selectGitImage(n)">
+								<input id="speaker_image{{ n }}" name="speaker_image{{ n }}" type="text" ng-hide="true" value="{{ speakers[n].image_url }}">
+				         	</div>
 						    </fieldset>
-							<div class="form-toolbar">
-								<button type="reset" class="btn btn-link pull-left" ng-click="talk={}; speakers=[]"> Reset talk details </button>			
-								<button type="button" class="btn btn-primary pull-right" ng-click="increaseNumberOfSpeakers()" >Add another speaker{{n}}</button>
+							<div class="form-toolbar">								
+								<button type="reset" class="btn btn-link pull-left" ng-click="talk={}; speakers=[]"> Reset talk details </button>										
+								<button type="button" class="btn btn-default pull-right" ng-click="increaseNumberOfSpeakers()" >Add another speaker{{n}}</button>
 								<br>
 								<br>
-								<button type="button" class="btn btn-danger pull-right" ng-click="decreaseNumberOfSpeakers()" ng-show="number_of_speakers > 1">Cancel </button>		
-							</div> 				
+								<div ng-show="submitTalk.$valid" class="ng-hide">
+								<button type="submit" class="btn btn-primary pull-right"> Submit talk </button>
+								</div>	
+								<br>
+								<br>
+								<button type="button" class="btn btn-danger pull-right" ng-click="decreaseNumberOfSpeakers()" ng-show="number_of_speakers > 1">Cancel </button>	
+							</div>
 					</form>
 				</div>
 			</div>
