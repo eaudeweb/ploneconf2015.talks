@@ -6,6 +6,7 @@ PloneConfTalks
     $scope.speakers = [];
     $scope.talk_disabled = false;
     $scope.number_of_speakers = 1;
+    $scope.default_image_url = "http://images.sodahead.com/polls/001970395/3335583527_anonymous_thumbnail_xlarge.gif";
 
     $scope.repeat = function(num) {
       return Array.apply(null, Array(num)).map(function (_, i) {return i;});
@@ -36,7 +37,7 @@ PloneConfTalks
       $scope.talk_disabled = false;
     };
 
-    $scope.talkValid = function() {
+    $scope.submitTalkValid = function() {
       return $scope.submitTalk.talk_title.$valid &&
              $scope.submitTalk.talk_summary.$valid &&
              $scope.submitTalk.talk_audience.$valid;
@@ -57,7 +58,8 @@ PloneConfTalks
           $scope.speakers[num].git_image_url = response.avatar_url;
           if($scope.speakers[num].git_image_url && !$scope.speakers[num].image_url) {
             $scope.speakers[num].git_image_selected = "selected";
-            $scope.speakers[num].git_image_deselected = "deslected";
+            $scope.speakers[num].twitter_image_selected = "deselected";
+            $scope.speakers[num].default_image_selected = "deselected";
             $scope.speakers[num].image_url = $scope.speakers[num].git_image;
           }
         });
@@ -81,6 +83,7 @@ PloneConfTalks
         if(!$scope.speakers[num].image_url) {
           $scope.speakers[num].twitter_image_selected = "selected";
           $scope.speakers[num].git_image_selected = "deselected";
+          $scope.speakers[num].default_image_selected = "deselected";
           $scope.speakers[num].image_url = $scope.speakers[num].twitter_image_url;
         }
       }
@@ -88,15 +91,32 @@ PloneConfTalks
 
     $scope.selectTwitterImage = function(num) {
       $scope.speakers[num].git_image_selected = "deselected";
+      $scope.speakers[num].default_image_selected = "deselected";
       $scope.speakers[num].twitter_image_selected = "selected";
       $scope.speakers[num].image_url = $scope.speakers[num].twitter_image_url;
     };
 
     $scope.selectGitImage = function(num) {
       $scope.speakers[num].git_image_selected = "selected";
+      $scope.speakers[num].default_image_selected = "deselected";
       $scope.speakers[num].twitter_image_selected = "deselected";
       $scope.speakers[num].image_url = $scope.speakers[num].git_image_url;
     };
+
+    $scope.selectDefaultImage = function(num) {
+      $scope.speakers[num].default_image_selected = "selected";
+      $scope.speakers[num].git_image_selected = "deselected";
+      $scope.speakers[num].twitter_image_selected = "deselected";
+      $scope.speakers[num].image_url = $scope.default_image_url;
+    };
+
+    $scope.getImageURL = function(num) {
+      if(!$scope.speakers[num].image_url) {
+        $scope.speakers[num].image_url = $scope.default_image_url;
+      }
+      return $scope.speakers[num].image_url;
+    };
+
   }])
 
   .directive('validFile',function(){

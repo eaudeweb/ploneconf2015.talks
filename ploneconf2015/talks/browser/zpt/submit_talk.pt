@@ -11,47 +11,18 @@
 				<div class="box box-form">
 					<form tal:attributes="action string:${context/absolute_url}/${view/__name__}" method="post" name="submitTalk" 
 		              class="form form-table" enctype="multipart/form-data" novalidate>
-					<h3> What do you want to talk about? </h3>
+					<h3> Submit talk </h3>
 					     <fieldset>
-					     	<div class="form-group col-sm-6">
+					     	<h5 class="legend">
+					     		What are you going to talk about?
+					     	</h5>
+					     	<div class="form-group col-sm-12">
 								 <label for="talk_title">
 								 	Title
-								 	<span class="required" ng-show="submitTalk.talk_title.$error.required" />
+								 	<span class="required" ng-show="submitTalk.talk_title.$error.required"/>
 								 </label>
 						         <input id="talk_title" type="text" name="talk_title" ng-model="talk.title" ng-readonly="talk_disabled" required/>
 					        </div>
-
-                            <h5 class="legend">
-                              What's your target audience?
-                              <span class="required" ng-show="submitTalk.talk_audience.$error.required" />
-                            </h5>
-                            <div class="form-radios">
-                              <label for="New to Plone" ng-class="{is_selected: talk.audience === 'New to Plone'}">
-                                <span class="icon icon-tshirt icon-block"></span>
-                                <input type="radio" id="New to Plone" name="talk_audience"
-                                       value="New to Plone"
-                                       ng-model="talk.audience" required> New to Plone
-                              </label>
-                              <label for="Plone Integrators" ng-class="{is_selected: talk.audience === 'Plone Integrators'}">
-                                <span class="icon icon-tshirt icon-block"></span>
-                                <input type="radio" id="Plone Integrators" name="talk_audience"
-                                       value="Plone Integrators"
-                                       ng-model="talk.audience" required> Plone Integrators
-                              </label>
-                              <label for="Plone Developers" ng-class="{is_selected: talk.audience === 'Plone Developers'}">
-                                <span class="icon icon-tshirt icon-block"></span>
-                                <input type="radio" id="Plone Developers" name="talk_audience"
-                                       value="Plone Developers"
-                                       ng-model="talk.audience" required checked="true"> Plone Developers
-                              </label>
-                              <label for="Case Studies" ng-class="{is_selected: talk.audience === 'Case Studies'}">
-                                <span class="icon icon-tshirt icon-block"></span>
-                                <input type="radio" id="Case Studies" name="talk_audience"
-                                       value="Case Studies"
-                                       ng-model="talk.audience" required checked="true"> Case Studies
-                              </label>
-                            </div>
-
 					        <div class="form-group col-sm-12">
 						         <label for="talk_summary">
 								 	Summary
@@ -60,97 +31,118 @@
 						         <textarea id="talk_summary" name="talk_summary" ng-model="talk.summary" ng-readonly="talk_disabled" required>
 						         </textarea>
 					        </div>
-					     </fieldset>
-					     <br>
-					     <button type="button" class="btn btn-default pull-left" ng-click="talk={}" ng-show="!talk_disabled"> Reset talk details </button>
-					     <button type="button" class="btn btn-primary pull-right" ng-click="disableTalk()" ng-disabled="!talkValid()" ng-show="!talk_disabled"> Next step </button>
-					     <button type="button" class="btn btn-primary pull-right" ng-click="enableTalk()" ng-show="talk_disabled"> Previous step </button> 
-					     <br>
-					     <br>
-					     <span ng-show="talk_disabled">
-					     	<span ng-repeat="n in repeat(number_of_speakers)">
-					            <h3> Who are you? </h3>
-									<fieldset>
-					        		<div class="form-group col-sm-4">
-										 <label for="speaker_name{{ n }}">
-										 	Name
-										 	<span class="required" ng-show="submitTalk.speaker_name{{ n }}.$error.required" />
-										 </label>
-								         <input class="form-control" id="speaker_name{{ n }}" type="text" name="speaker_name{{ n }}" ng-model="speakers[n].name" required/>
-							        </div>
-
-							        <div class="form-group col-sm-4">
-								         <label for="speaker_email{{ n }}">
-										 	E-mail Address
-											 <span class="required" ng-show="submitTalk.speaker_email{{ n }}.$error.required" />
-										 </label>
-								         <input class="form-control" id="speaker_email{{ n }}" type="email" name="speaker_email{{ n }}" ng-model="speakers[n].email" required/>
-							         </div>
-
-							         <div class="form-group col-sm-4">
-								         <label for="speaker_country{{ n }}">
-										 	Country
-											<span class="required" ng-show="submitTalk.speaker_country{{ n }}.$error.required" />
-										 </label>
-								         <input class="form-control" id="speaker_country{{ n }}" type="text" name="speaker_country{{ n }}" ng-model="speakers[n].country" required/>
-							         </div>
-                                     
-                                     <div class="form-group col-sm-8">
-                                         <label for="speaker_about{{ n }}">
-                                            About
-                                            <span class="required" ng-show="submitTalk.speaker_about{{ n }}.$error.required"/>
-                                         </label>
-                                         <textarea id="speaker_about{{ n }}" rows="1" cols="1" name="speaker_about{{ n }}" ng-model="speakers[n].about" required> </textarea>
-                                     </div>
-
-							         <div class="form-group col-sm-4">
-								         <label for="speaker_company{{ n }}">
-										 	Company / Organization
-										 </label>
-								         <input class="form-control" id="speaker_company{{ n }}" type="text" name="speaker_company{{ n }}" ng-model="speakers[n].company"/>
-							         </div>
-
-							         <div class="form-group col-sm-4">
-								         <label for="speaker_twitter{{ n }}">
-										 	Twitter
-										 </label>
-								         <input class="form-control" id="speaker_twitter{{ n }}" type="text" name="speaker_twitter{{ n }}" ng-model="speakers[n].twitter" ng-blur="tryGetTwitterPhotoLink(n)"/>
-							         </div>
-
-							         <div class="form-group col-sm-4">
-								         <label for="speaker_git{ n }}">
-										 	GitHub account
-										 </label>
-								         <input class="form-control" id="speaker_git{{ n }}" type="text" name="speaker_git{{ n }}" ng-model="speakers[n].git" ng-blur="tryGetGitPhotoLink(n)"/>
-							         </div>
-
-							         <div class="form-group col-sm-4">
-								         <label for="speaker_linkedin{ n }}">
-										 	LinkedIn account
-										 </label>
-								         <input class="form-control" id="speaker_linkedin{{ n }}" type="url" name="speaker_linkedin{{ n }}" ng-model="speakers[n].linkedin"/>
-							         </div>
-
-							         <div class="form-group col-sm-12" ng-show="speakers[n].git_image_url || speakers[n].twitter_image_url">
-							         	<label>
-							         		Picture preview
-							         	</label>
-							         	<br>
-										<img ng-src="{{ speakers[n].twitter_image_url }}" ng-show="speakers[n].twitter_image_url" class="{{ speakers[n].twitter_image_selected }} col-xs-4" ng-click="selectTwitterImage(n)">
-										<img ng-src="{{ speakers[n].git_image_url }}" ng-show="speakers[n].git_image_url" class="{{ speakers[n].git_image_selected }} col-xs-4 col-xs-offset-4" ng-click="selectGitImage(n)">
-										<input id="speaker_image{{ n }}" name="speaker_image{{ n }}" type="text" ng-hide="true" value="{{ speakers[n].image_url }}">
-							         </div>
-							     </fieldset>
-							     <br>
-					        	<button type="submit" class="btn btn-primary pull-right" ng-disabled="!submitTalk.$valid" ng-show="isTerminal(n)">Submit Talk</button>		        	
-					        	<button type="button" class="btn btn-default pull-right" ng-click="increaseNumberOfSpeakers()" ng-show="isTerminal(n)">Add another speaker</button>
-					        	<button type="button" class="btn btn-danger pull-right" ng-click="decreaseNumberOfSpeakers()" ng-show="isCoSpeaker(n)">Cancel</button>
-							    <button type="button" class="btn btn-default pull-left" ng-click="speakers[n]={}; speakers[n].email=''" ng-show="talk_disabled"> Reset details </button>
-							    <br>
-							   	<br>
-							   	<br>
-							   	</span>
-							</span>
+					    </fieldset>
+					    <fieldset>
+                            <h5 class="legend">
+                              What's your target audience?
+                              <span class="required" ng-show="submitTalk.talk_audience.$error.required"/>
+                            </h5>
+                            <div class="form-radios">
+                              <label for="New to Plone" ng-class="{is_selected: talk.audience === 'New to Plone'}">
+                                <!--<span class="icon icon-tshirt icon-block"></span>-->
+                                <input type="radio" id="New to Plone" name="talk_audience"
+                                       value="New to Plone"
+                                       ng-model="talk.audience" required> New to Plone
+                              </label>
+                              <label for="Plone Integrators" ng-class="{is_selected: talk.audience === 'Plone Integrators'}">
+                                <!--<span class="icon icon-tshirt icon-block"></span>-->
+                                <input type="radio" id="Plone Integrators" name="talk_audience"
+                                       value="Plone Integrators"
+                                       ng-model="talk.audience" required> Plone Integrators
+                              </label>
+                              <label for="Plone Developers" ng-class="{is_selected: talk.audience === 'Plone Developers'}">
+                                <!--<span class="icon icon-tshirt icon-block"></span>-->
+                                <input type="radio" id="Plone Developers" name="talk_audience"
+                                       value="Plone Developers"
+                                       ng-model="talk.audience" required checked="true"> Plone Developers
+                              </label>
+                              <label for="Case Studies" ng-class="{is_selected: talk.audience === 'Case Studies'}">
+                                <!--<span class="icon icon-tshirt icon-block"></span>-->
+                                <input type="radio" id="Case Studies" name="talk_audience"
+                                       value="Case Studies"
+                                       ng-model="talk.audience" required checked="true"> Case Studies
+                              </label>
+                            </div>					        
+					    </fieldset>
+					    <fieldset ng-repeat="n in repeat(number_of_speakers)">
+					     	<h5 class="legend">
+						     	Who are you?
+						     </h5>
+						     <div class="form-group col-sm-6">
+						     	<label for="speaker_name{{ n }}">
+						     		Name
+						     		<span class="required" ng-show="submitTalk.speaker_name{{ n }}.$error.required" />
+						     	</label>
+						     	<input class="form-control" id="speaker_name{{ n }}" type="text" name="speaker_name{{ n }}" ng-model="speakers[n].name" required/>
+						     </div>
+						     <div class="form-group col-sm-6">
+						     	<label for="speaker-email{{ n }}"> 
+						     		E-mail 
+						     		<span class="required" ng-show="submitTalk.speaker_email{{ n }}.$error.required" />
+						     	</label>
+						     	<input class="form-control" id="speaker_email{{ n }}" type="email" name="speaker_email{{ n }}" ng-model="speakers[n].email" required/>
+						     </div>
+						     <div class="form-group col-sm-12">
+						     	<label for="speaker_about{{ n }}">
+						     		About
+						     		<span class="required" ng-show="submitTalk.speaker_about{{ n }}.$error.required"/>
+						     	</label>
+						     	<textarea id="speaker_about{{ n }}" rows="1" cols="1" name="speaker_about{{ n }}" ng-model="speakers[n].about" required> 
+						     	</textarea>
+						     </div>
+						     <div class="form-group col-sm-6">
+						     	<label for="speaker_country{{ n }}">
+						     		Country
+						     		<span class="required" ng-show="submitTalk.speaker_country{{ n }}.$error.required"/>
+						     	</label>
+						     	<input class="form-control" id="speaker_country{{ n }}" type="text" name="speaker_country{{ n }}" ng-model="speakers[n].country" required/>
+						     </div>
+						     <div class="form-group col-sm-6">
+						     	<label for="speaker_company{{ n }}">
+						     		Company/Organization
+						     	</label>
+						     	<input class="form-control" id="speaker_company{{ n }}" type="text" name="speaker_company{{ n }}" ng-model="speakers[n].company"/>
+						     </div>						     
+						     <div class="form-group col-sm-4">
+						     	<label for="speaker_twitter{{ n }}">
+						     		Twitter
+						     	</label>
+						     	<input class="form-control" id="speaker_twitter{{ n }}" type="text" name="speaker_twitter{{ n }}" ng-model="speakers[n].twitter" ng-blur="tryGetTwitterPhotoLink(n)"/>
+						     </div>
+						     <div class="form-group col-sm-4">
+						     	<label for="speaker_git{{ n }}">
+						     		GitHub account
+						     	</label>
+						     	<input class="form-control" id="speaker_git{{ n }}" type="text" name="speaker_git{{ n }}" ng-model="speakers[n].git" ng-blur="tryGetGitPhotoLink(n)"/>
+						     </div>
+						     <div class="form-group col-sm-4">
+						     	<label for="speaker_linkedin{{ n}}">
+						     		LinkedIn account
+						     	</label>
+						     	<input class="form-control" id="speaker_linkedin{{ n }}" type="url" name="speaker_linkedin{{ n }}" ng-model="speakers[n].linkedin"/>
+						     </div>							
+							<div class="form-group col-sm-12">
+				         		<label>
+				         			Picture preview
+				         		</label>
+				         		<div class="preview">			         		
+									<img ng-src="{{ speakers[n].twitter_image_url }}" ng-show="speakers[n].twitter_image_url" class="{{ speakers[n].twitter_image_selected }} col-xs-4" ng-click="selectTwitterImage(n)">
+									<img ng-src="{{ speakers[n].git_image_url }}" ng-show="speakers[n].git_image_url" class="{{ speakers[n].git_image_selected }} col-xs-4" ng-click="selectGitImage(n)">
+									<img ng-src="{{ default_image_url }}" class="{{ speakers[n].default_image_selected }} col-xs-4" ng-click="selectDefaultImage(n)">
+									<input id="speaker_image{{ n }}" name="speaker_image{{ n }}" type="text" ng-hide="true" value="{{ getImageURL(n) }}"/>
+								</div>
+				         	</div>
+						    </fieldset>
+							<div class="form-toolbar">								
+								<button type="reset" class="btn btn-link pull-left" ng-click="talk={}; speakers=[]"> Reset talk details </button>										
+								<button type="button" class="btn btn-default pull-right" ng-click="increaseNumberOfSpeakers()" >Add another speaker{{n}}</button>
+								<br>
+								<br>
+								<button type="submit" class="btn btn-primary pull-right" ng-disabled="!submitTalk.$valid"> Submit talk </button>
+								<br>
+								<br>
+								<button type="button" class="btn btn-danger pull-right" ng-click="decreaseNumberOfSpeakers()" ng-show="number_of_speakers > 1">Cancel </button>	
+							</div>
 					</form>
 				</div>
 			</div>

@@ -5,39 +5,29 @@
 <body>
 
 <div metal:fill-slot="content-core">
-  <section class="bootstrap">
-
-   	<!-- <h3 tal:content="view/name"> Speaker Name </h3> -->
-   	<p tal:content="view/email"> Speaker Email </p>
-   	<p tal:content="view/country"> Speaker Country </p>
-   	<span tal:condition="view/twitter">
-	   	<a class="btn btn-default" href="twitter link" tal:attributes="href python: 'https://twitter.com/' + view.twitter">
-	   		Twitter @<span tal:content="view/twitter"> Speaker Twitter Account </span>
-	   	</a>
-   </span>
-   <br>
-   <span tal:condition="view/git">
-	   	<a class="btn btn-default" href="git link" tal:attributes="href python: 'https://github.com/' + view.git">
-	   		Github 
-	   		<span tal:content="view/git">
-	   			Speaker GitHub Account
-	   		</span>
-	   	</a>
-   </span>
-  	<br>
-  	<span tal:condition="view/linkedin">
-	   	<a class="btn btn-default" href="linkedin link" tal:attributes="href view/linkedin">
-	   		Linkedin
-	   		<span tal:content="view/name">
-	   			Speaker Name
-	   		</span>
-	   	</a>
-   </span>
-  	<br>
-    <span tal:condition="view/image">
-    	<img src="speaker image" tal:attributes="src view/image">
-  	</span>
-  </section>
+ 	<!-- <h3 tal:content="view/name"> Speaker Name </h3> -->
+ 	<p tal:content="view/email"> Speaker Email </p>
+ 	<p tal:content="view/country"> Speaker Country </p>
+ 	<div tal:condition="view/twitter">
+   	<a class="btn btn-default" href="twitter link" tal:attributes="href python: 'https://twitter.com/' + view.twitter">
+   		Twitter @<span tal:content="view/twitter"> Speaker Twitter Account </span>
+   	</a>
+  </div>
+  <div tal:condition="view/git">
+   	<a class="btn btn-default" href="git link" tal:attributes="href python: 'https://github.com/' + view.git">
+   		Github 
+   		<span tal:content="view/git">Speaker GitHub Account</span>
+   	</a>
+  </div>
+	<div tal:condition="view/linkedin">
+   	<a class="btn btn-default" href="linkedin link" tal:attributes="href view/linkedin">
+   		Linkedin
+      <span tal:content="view/name">Speaker Name</span>
+   	</a>
+  </div>
+  <div tal:condition="view/image">
+  	<img src="speaker image" tal:attributes="src view/image">
+	</div>
 </div>
 </body>
 </html>
