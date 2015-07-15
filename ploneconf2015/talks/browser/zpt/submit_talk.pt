@@ -58,7 +58,8 @@
             </fieldset>
 
             <fieldset ng-repeat="n in repeat(number_of_speakers)">
-              <h5 class="legend">Who are you?</h5>
+              <h5 ng-show="n == 0" class="legend">Who are you?</h5>
+              <h5 ng-show="n > 0" class="legend">Co-Speaker #{{ speakers_indexes.indexOf(n) }}</h5>
               <div class="form-group col-sm-6">
                 <label for="speaker_name{{ n }}">Name
                   <span class="required" ng-show="submitTalk.speaker_name{{ n }}.$error.required" />
@@ -105,7 +106,7 @@
 
               <div class="form-group col-sm-4">
                 <label for="speaker_linkedin{{ n}}">LinkedIn account</label>
-                <input class="form-control" id="speaker_linkedin{{ n }}" type="url" name="speaker_linkedin{{ n }}" ng-model="speakers[n].linkedin"/>
+                <input class="form-control" id="speaker_linkedin{{ n }}" type="text" name="speaker_linkedin{{ n }}" ng-model="speakers[n].linkedin"/>
               </div>
 
               <div class="form-group col-sm-12 preview">
@@ -114,23 +115,31 @@
                   <div ng-show="speakers[n].twitter_image_url" class="avatar-image {{ speakers[n].twitter_image_selected }}" ng-click="selectTwitterImage(n)">
                     <img ng-src="{{ speakers[n].twitter_image_url }}">
                   </div>
-                  <div class="avatar-placeholder" ng-hide="speakers[n].twitter_image_url">Twitter<br>profile<br>image</div>
+                  <div class="avatar-placeholder" ng-hide="speakers[n].twitter_image_url">
+                    Twitter<br>profile<br>image
+                  </div>
                 </div>
 								<div class="avatar-option">
 									<div ng-show="speakers[n].git_image_url" class="avatar-image {{ speakers[n].git_image_selected }}" ng-click="selectGitImage(n)">
 									  <img ng-src="{{ speakers[n].git_image_url }}">
 									</div>
-								  <div class="avatar-placeholder" ng-hide="speakers[n].git_image_url">Github<br>profile<br>image</div>
+								  <div class="avatar-placeholder" ng-hide="speakers[n].git_image_url">
+                    Github<br>profile<br>image
+                  </div>                  
                 </div>
-                <input id="speaker_image{{ n }}" name="speaker_image{{ n }}" type="text" ng-hide="true" value="{{ getImageURL(n) }}"/> 
-              </div>  
+                <div class="avatar-option">
+                  <div class="avatar-placeholder avatar-no-image" ng-click="deselectImage(n)">
+                    No<br>profile<br>picture
+                  </div>
+                </div>		              
+                <input id="speaker_image{{ n }}" name="speaker_image{{ n }}" type="text" ng-hide="true" value="{{ getImageURL(n) }}"/>
+                <button type="button" class="btn btn-danger pull-right" ng-click="removeCoSpeaker(n)" ng-show="n > 0"> Remove Co-Speaker</button> 
+              </div>              
 						</fieldset>
-
-            <div class="form-toolbar">
+            <div class="form-toolbar">              
               <button type="reset" class="btn btn-link pull-left" ng-click="talk={}; speakers=[]"> Reset talk details </button>
-              <div class="button-list pull-right">
-                <button type="button" class="btn btn-default" ng-click="increaseNumberOfSpeakers()" >Add another speaker{{n}}</button>
-                <button type="button" class="btn btn-danger" ng-click="decreaseNumberOfSpeakers()" ng-show="number_of_speakers > 1">Cancel </button>
+              <div class="button-list pull-right">                         
+                <button type="button" class="btn btn-default" ng-click="increaseNumberOfSpeakers()">Add another speaker{{n}}</button>
                 <button type="submit" class="btn btn-primary" ng-disabled="!submitTalk.$valid"> Submit talk </button>
               </div>
           </form>
