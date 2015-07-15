@@ -6,10 +6,11 @@ PloneConfTalks
     $scope.speakers = [];
     $scope.talk_disabled = false;
     $scope.number_of_speakers = 1;
-    $scope.default_image_url = "http://images.sodahead.com/polls/001970395/3335583527_anonymous_thumbnail_xlarge.gif";
+    $scope.speakers_indexes = [0];
+    $scope.default_image_url = "/++theme++ploneconf2015.theme/img/avatar-placeholder.svg";
 
     $scope.repeat = function(num) {
-      return Array.apply(null, Array(num)).map(function (_, i) {return i;});
+      return $scope.speakers_indexes;
     };
 
     $scope.isTerminal = function(num) {
@@ -17,16 +18,23 @@ PloneConfTalks
     };
 
     $scope.isCoSpeaker = function(num) {
-      return $scope.number_of_speakers > 1 && $scope.isTerminal(num);
+      return num > 0;
     };
 
     $scope.increaseNumberOfSpeakers = function() {
+      $scope.speakers_indexes.push($scope.number_of_speakers);
       $scope.number_of_speakers = $scope.number_of_speakers + 1;
     };
 
     $scope.decreaseNumberOfSpeakers = function() {
+      $scope.speakers_indexes.pop();
       $scope.number_of_speakers = $scope.number_of_speakers - 1;
       $scope.speakers.pop();
+    };
+
+    $scope.removeCoSpeaker = function(num) {
+      delete $scope.speakers[num];
+      delete $scope.speakers_indexes.splice($scope.speakers_indexes.indexOf(num), 1);
     };
 
     $scope.disableTalk = function() {
@@ -57,9 +65,9 @@ PloneConfTalks
         $http.get("https://api.github.com/users/" + $scope.speakers[num].git).success(function(response) {
           $scope.speakers[num].git_image_url = response.avatar_url;
           if($scope.speakers[num].git_image_url && !$scope.speakers[num].image_url) {
-            $scope.speakers[num].git_image_selected = "selected";
-            $scope.speakers[num].twitter_image_selected = "deselected";
-            $scope.speakers[num].default_image_selected = "deselected";
+            $scope.speakers[num].git_image_selected = "is_selected";
+            $scope.speakers[num].twitter_image_selected = "";
+            // $scope.speakers[num].default_image_selected = "";
             $scope.speakers[num].image_url = $scope.speakers[num].git_image;
           }
         });
@@ -81,39 +89,50 @@ PloneConfTalks
         }
         $scope.speakers[num].twitter_image_url = "http://avatars.io/twitter/" + $scope.speakers[num].twitter + "?size=large";
         if(!$scope.speakers[num].image_url) {
-          $scope.speakers[num].twitter_image_selected = "selected";
-          $scope.speakers[num].git_image_selected = "deselected";
-          $scope.speakers[num].default_image_selected = "deselected";
+          $scope.speakers[num].twitter_image_selected = "is_selected";
+          $scope.speakers[num].git_image_selected = "";
+          // $scope.speakers[num].default_image_selected = "";
           $scope.speakers[num].image_url = $scope.speakers[num].twitter_image_url;
         }
       }
     }
 
     $scope.selectTwitterImage = function(num) {
-      $scope.speakers[num].git_image_selected = "deselected";
-      $scope.speakers[num].default_image_selected = "deselected";
-      $scope.speakers[num].twitter_image_selected = "selected";
+      $scope.speakers[num].git_image_selected = "";
+      // $scope.speakers[num].default_image_selected = "";
+      $scope.speakers[num].twitter_image_selected = "is_selected";
       $scope.speakers[num].image_url = $scope.speakers[num].twitter_image_url;
     };
 
     $scope.selectGitImage = function(num) {
-      $scope.speakers[num].git_image_selected = "selected";
-      $scope.speakers[num].default_image_selected = "deselected";
-      $scope.speakers[num].twitter_image_selected = "deselected";
+      $scope.speakers[num].git_image_selected = "is_selected";
+      // $scope.speakers[num].default_image_selected = "";
+      $scope.speakers[num].twitter_image_selected = "";
       $scope.speakers[num].image_url = $scope.speakers[num].git_image_url;
     };
 
-    $scope.selectDefaultImage = function(num) {
-      $scope.speakers[num].default_image_selected = "selected";
-      $scope.speakers[num].git_image_selected = "deselected";
-      $scope.speakers[num].twitter_image_selected = "deselected";
-      $scope.speakers[num].image_url = $scope.default_image_url;
+    $scope.deselectImage = function(num) {
+      if(!$scope.speakers[num]) {
+        $scope.speakers[num] = {};
+      }
+      $scope.speakers[num].git_image_selected = "";
+      $scope.speakers[num].twitter_image_selected = "";
+      $scope.speakers[num].image_url = "";
     };
+    // $scope.selectDefaultImage = function(num) {
+      // $scope.speakers[num].default_image_selected = "is_selected";
+      // $scope.speakers[num].git_image_selected = "";
+      // $scope.speakers[num].twitter_image_selected = "";
+      // $scope.speakers[num].image_url = $scope.default_image_url;
+    // };
 
     $scope.getImageURL = function(num) {
-      if(!$scope.speakers[num].image_url) {
-        $scope.speakers[num].image_url = $scope.default_image_url;
+      if(!$scope.speakers[num] || !$scope.speakers[num].image_url) {
+	return "";
       }
+      // if(!$scope.speakers[num].image_url) {
+      //   $scope.speakers[num].image_url = $scope.default_image_url;
+      // }
       return $scope.speakers[num].image_url;
     };
 
