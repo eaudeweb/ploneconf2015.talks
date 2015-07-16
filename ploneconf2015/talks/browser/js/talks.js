@@ -52,6 +52,9 @@ PloneConfTalks
     };
 
     $scope.tryGetGitPhotoLink = function(num) {
+      if($scope.speakers[num].git_image_selected) {
+        $scope.speakers[num].image_url = "";
+      }
       if($scope.speakers[num] && $scope.speakers[num].git) {
         if($scope.speakers[num].git.indexOf("github.com") > -1) {
           var input = $scope.speakers[num].git.split("/");
@@ -68,13 +71,20 @@ PloneConfTalks
             $scope.speakers[num].git_image_selected = "is_selected";
             $scope.speakers[num].twitter_image_selected = "";
             // $scope.speakers[num].default_image_selected = "";
-            $scope.speakers[num].image_url = $scope.speakers[num].git_image;
+            $scope.speakers[num].image_url = $scope.speakers[num].git_image_url;
           }
         });
+      }
+      if($scope.speakers[num] && !$scope.speakers[num].git) {
+        $scope.speakers[num].git_image_url = "";
+        $scope.speakers[num].selectAvailableImage(num);
       }
     };
 
     $scope.tryGetTwitterPhotoLink = function(num) {
+      if($scope.speakers[num].twitter_image_selected) {
+        $scope.speakers[num].image_url = "";
+      }
       if($scope.speakers[num] && $scope.speakers[num].twitter) {
         if($scope.speakers[num].twitter.indexOf("twitter.com") > -1) {
           var input = $scope.speakers[num].twitter.split("/");
@@ -95,7 +105,23 @@ PloneConfTalks
           $scope.speakers[num].image_url = $scope.speakers[num].twitter_image_url;
         }
       }
+      if($scope.speakers[num] && !$scope.speakers[num].twitter) {
+        $scope.speakers[num].twitter_image_url = "";
+        $scope.selectAvailableImage(num);
+      }
     }
+
+    $scope.selectAvailableImage = function(num) {
+      if($scope.speakers[num] && $scope.speakers[num].git_image_url) {
+        $scope.selectGitImage(num);
+      }
+      else if($scope.speakers[num] && $scope.speakers[num].twitter_image_url) {
+        $scope.selectTwitterImage(num);
+      }
+      else {
+        $scope.deselectImage(num);
+      }     
+    };
 
     $scope.selectTwitterImage = function(num) {
       $scope.speakers[num].git_image_selected = "";
