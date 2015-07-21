@@ -130,12 +130,26 @@
                   </li>
                   <li> 
                     <label for="avatar-none-{{ n }}">
-                      <input type="radio" name="speaker_avatar{{ n }}" id="avatar-none-{{ n }}"  ng-click="deselectImage(n)" ng-checked="!speakers[n].image_url"/> No profile picture
+                      <input type="radio" name="speaker_avatar{{ n }}" id="avatar-none-{{ n }}"  ng-click="deselectImage(n)" ng-checked="!speakers[n].image_url"/> No profile image
                     </label>
                   </li>
                 </ul>
                 <input id="speaker_image{{ n }}" name="speaker_image{{ n }}" type="hidden" value="{{ getImageURL(n) }}"/>                
-              </div>              
+              </div>    
+              <div class="form-group col-sm-12 "> 
+                <div class="checkbox-group">              
+                  <ul class="avatar-options">
+                    <li>                    
+                      <input type="checkbox"/> Are you a first time speaker at a Plone Conference? 
+                    </li>
+                    <li> 
+                      <input type="checkbox"/> Would you like to be brought into contact with a buddy or buddies who would be willing to help you prepare your talk
+                    </li>                  
+                  </ul>
+                </div>
+                <p class="explanation"> We value a wide diversity in both talks and speakers,             and recognize that it can be hard or even scary to submit a             talk if you have not done so before. A diverse group of             people is willing to work with you to get your proposal, and             your talk, to be the best it can be. So feel empowered to             share your experiences with Plone and the wider Plone             community and ecosystem. From how to run a consultancy, to             working with various audiences and communities, there is             more to Plone than just code or theming...</p>
+                <input id="speaker_image{{ n }}" name="speaker_image{{ n }}" type="hidden" value="{{ getImageURL(n) }}"/>                
+              </div>          
 						</fieldset>
             <div class="form-toolbar">              
               <button type="reset" class="btn btn-link pull-left" ng-click="talk={}; speakers=[]"> Reset talk details </button>
