@@ -30,29 +30,28 @@
                 What's your target audience?
                 <span class="required" ng-show="submitTalk.talk_audience.$error.required"/>
               </h5>
-              <div class="form-radios">
-               <label for="New to Plone" ng-class="{is_selected: talk.audience === 'New to Plone'}">
-                <!--<span class="icon icon-tshirt icon-block"></span>-->
-                <input type="radio" id="New to Plone" name="talk_audience" value="New to Plone"
-                ng-model="talk.audience" required> New to Plone
-               </label>
-
-               <label for="Plone Integrators" ng-class="{is_selected: talk.audience === 'Plone Integrators'}">
-                <!--<span class="icon icon-tshirt icon-block"></span>-->
-                <input type="radio" id="Plone Integrators" name="talk_audience" value="Plone Integrators" ng-model="talk.audience" required> Plone Integrators
-               </label>
-
-               <label for="Plone Developers" ng-class="{is_selected: talk.audience === 'Plone Developers'}">
-                <!--<span class="icon icon-tshirt icon-block"></span>-->
-                <input type="radio" id="Plone Developers" name="talk_audience" value="Plone Developers" ng-model="talk.audience" required checked="true"> Plone Developers
-               </label>
-
-               <label for="Case Studies" ng-class="{is_selected: talk.audience === 'Case Studies'}">
-                <!--<span class="icon icon-tshirt icon-block"></span>-->
-                <input type="radio" id="Case Studies" name="talk_audience" value="Case Studies"
-                 ng-model="talk.audience" required checked="true"> Case Studies
-               </label>
-             </div>
+              <div class="form-group col-sm-12 ">
+                <ul class="audience-options">
+                  <li>
+                    <input type="radio" id="New to Plone" name="talk_audience" value="New to Plone" ng-model="talk.audience" required> New to Plone
+                  </li>
+                  <li>
+                    <input type="radio" id="Plone Integrators" name="talk_audience" value="Plone Integrators" ng-model="talk.audience" required> Plone Integrators     
+                  </li>
+                  <li>
+                    <input type="radio" id="Plone Developers" name="talk_audience" value="Plone Developers" ng-model="talk.audience" required> Plone Developers              
+                  </li>
+                  <li>
+                    <input type="radio" id="Case Studies" name="talk_audience" value="Case Studies" ng-model="talk.audience" required> Case Studies
+                  </li>
+                  <li>
+                    <input type="radio" id="Case Studies" name="talk_audience" value="Community" ng-model="talk.audience" required> Community
+                  </li>
+                  <li>
+                    <input type="radio" id="Case Studies" name="talk_audience" value="Other" ng-model="talk.audience" required> Other
+                  </li>
+                <ul>
+              </div>
             </fieldset>
 
             <fieldset ng-repeat="n in repeat(number_of_speakers)">
