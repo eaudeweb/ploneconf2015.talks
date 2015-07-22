@@ -12,6 +12,8 @@ from zope.container.interfaces import INameChooser
 from ploneconf2015.talks.events.submit_talk import SubmitTalkEvent
 from zope.event import notify
 import requests
+import json
+
 
 class SubmitTalk(BrowserView):
     """ Submit Talk view
@@ -41,9 +43,16 @@ class SubmitTalk(BrowserView):
                 email=form['speaker_email' + str(index)], country=form['speaker_country' + str(index)],
                 company=form['speaker_company' + str(index)], twitter=form['speaker_twitter' + str(index)],
                 git=form['speaker_git' + str(index)], linkedin=form['speaker_linkedin' + str(index)]))
-            speakers[index].image = NamedBlobImage(
-                        filename=u"%s image" % form['speaker_name' + str(index)],
-                        data=requests.get(form['speaker_image' + str(index)]).content)
+
+            if 'speaker_buddy' + str(index) in form:
+                speakers[index].buddy = True
+            if 'speaker_first_time' + str(index) in form:
+                speakers[index].first_time = True
+
+            if form['speaker_image' + str(index)]:
+                speakers[index].image = NamedBlobImage(
+                            filename=u"%s image" % form['speaker_name' + str(index)],
+                            data=requests.get(form['speaker_image' + str(index)]).content)
 
         return speakers
 
@@ -60,8 +69,9 @@ class SubmitTalk(BrowserView):
         talk = talk_info._constructInstance(
             self.context['Talks'],
             id=INameChooser(self.context['Talks']).chooseName(form['talk_title'], self.context),
-            title=form['talk_title'], description=form['talk_summary'],
-            target_audience=form['talk_audience'])
+            title=form['talk_title'], description=form['talk_summary'])
+
+        talk.target_audience = json.loads(form['talk_audience']).values()
 
         intids = getUtility(IIntIds)
         talk.relatedItems = [RelationValue(intids.getId(speaker)) for speaker in speakers]

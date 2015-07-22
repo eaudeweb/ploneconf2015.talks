@@ -13,9 +13,10 @@ class ITalkStorage(Interface):
 class ITalk(model.Schema):
     """ Talk schema
     """
-    target_audience = schema.TextLine(
+    target_audience = schema.List(
         title=u"Target audience",
-        default=u"",
+        value_type=schema.TextLine(title=u"Target Audience Tag",
+                                   default=u""),
         required=True
     )
 
@@ -69,4 +70,18 @@ class ISpeaker(model.Schema):
         title=u"Picture",
         description=u"",
         required=False,
+    )
+
+    first_time = schema.Bool(
+        title=u"First Time",
+        description=u"",
+        default=False,
+        required=False
+    )
+
+    buddy = schema.Bool(
+        title=u"Buddy",
+        description=u"",
+        default=False,
+        required=False
     )

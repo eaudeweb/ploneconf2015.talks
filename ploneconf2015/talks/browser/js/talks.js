@@ -21,6 +21,17 @@ PloneConfTalks
       return num > 0;
     };
 
+    $scope.audienceRequired = function() {
+      for(var prop in $scope.talk.audience) {
+          if($scope.talk.audience.hasOwnProperty(prop)) {
+            if($scope.talk.audience[prop]) {
+              return false;
+            }
+          }
+      }
+      return true;
+    }
+
     $scope.increaseNumberOfSpeakers = function() {
       $scope.speakers_indexes.push($scope.number_of_speakers);
       $scope.number_of_speakers = $scope.number_of_speakers + 1;
@@ -35,20 +46,6 @@ PloneConfTalks
     $scope.removeCoSpeaker = function(num) {
       delete $scope.speakers[num];
       delete $scope.speakers_indexes.splice($scope.speakers_indexes.indexOf(num), 1);
-    };
-
-    $scope.disableTalk = function() {
-      $scope.talk_disabled = true;
-    };
-
-    $scope.enableTalk = function() {
-      $scope.talk_disabled = false;
-    };
-
-    $scope.submitTalkValid = function() {
-      return $scope.submitTalk.talk_title.$valid &&
-             $scope.submitTalk.talk_summary.$valid &&
-             $scope.submitTalk.talk_audience.$valid;
     };
 
     $scope.tryGetGitPhotoLink = function(num) {
@@ -77,7 +74,7 @@ PloneConfTalks
       }
       if($scope.speakers[num] && !$scope.speakers[num].git) {
         $scope.speakers[num].git_image_url = "";
-        $scope.speakers[num].selectAvailableImage(num);
+        $scope.selectAvailableImage(num);
       }
     };
 

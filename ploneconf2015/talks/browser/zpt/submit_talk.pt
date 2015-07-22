@@ -28,40 +28,41 @@
             <fieldset>
               <h5 class="legend">
                 What's your target audience?
-                <span class="required" ng-show="submitTalk.talk_audience.$error.required"/>
+                <span class="required" ng-show="audienceRequired()"/>
               </h5>
               <div class="form-group col-sm-12">
                 <ul class="no-list">
                   <li>
                     <label for="New to Plone">
-                    <input type="checkbox" id="New to Plone" name="talk_audience" value="New to Plone" ng-model="talk.audience" required> New to Plone
+                    <input type="checkbox" id="New to Plone" ng-true-value="'New to Plone'" ng-false-value="''" ng-model="talk.audience[0]"> New to Plone
                     </label>
                   </li>
                   <li>
                     <label for="Plone Integrators">
-                    <input type="checkbox" id="Plone Integrators" name="talk_audience" value="Plone Integrators" ng-model="talk.audience" required> Plone Integrators   
+                    <input type="checkbox" id="Plone Integrators" ng-true-value="'Plone Integrators'" ng-false-value="''" ng-model="talk.audience[1]"> Plone Integrators
                     </label>  
                   </li>
                   <li>
                     <label for="Plone Developers">
-                    <input type="checkbox" id="Plone Developers" name="talk_audience" value="Plone Developers" ng-model="talk.audience" required> Plone Developers      
+                    <input type="checkbox" id="Plone Developers" ng-true-value="'Plone Developers'" ng-false-value="''" ng-model="talk.audience[2]"> Plone Developers   
                     </label>        
                   </li>
                   <li>
                     <label for="Case Studies">
-                    <input type="checkbox" id="Case Studies" name="talk_audience" value="Case Studies" ng-model="talk.audience" required> Case Studies
+                    <input type="checkbox" id="Case Studies" ng-true-value="'Case Studies'" ng-false-value="''" ng-model="talk.audience[3]"> Case Studies
                     </label>
                   </li>
                   <li>
                     <label for="Community">
-                    <input type="checkbox" id="Community" name="talk_audience" value="Community" ng-model="talk.audience" required> Community
+                    <input type="checkbox" id="Community" ng-true-value="'Community'" ng-false-value="''" ng-model="talk.audience[4]"> Community
                     </label>
                   </li>
                   <li>
                     <label for="Other">
-                    <input type="checkbox" id="Other" name="talk_audience" value="Other" ng-model="talk.audience" required> Other
+                    <input type="checkbox" id="Other" ng-true-value="'Other'" ng-false-value="''" ng-model="talk.audience[5]"> Other
                     </label>
                   </li>
+                  <input type="hidden" id="talk_audience" name="talk_audience" value="{{ talk.audience }}" ng-required="audienceRequired()"/>
                 <ul>
               </div>
             </fieldset>
@@ -131,46 +132,45 @@
                 <ul class="avatar-options">
                   <li>
                     <label for="avatar-twitter-{{ n }}">
-                      <input type="radio" name="speaker_avatar{{ n }}" id="avatar-twitter-{{ n }}" ng-click="selectTwitterImage(n)" ng-disabled="!speakers[n].twitter_image_url" ng-checked="speakers[n].twitter_image_selected"> Twitter profile image
+                      <input type="radio" id="avatar-twitter-{{ n }}" ng-click="selectTwitterImage(n)" ng-disabled="!speakers[n].twitter_image_url" ng-checked="speakers[n].twitter_image_selected"> Twitter profile image
                     </label>
                   </li>
                   <li> 
                     <label for="avatar-github-{{ n }}">
-                      <input type="radio" name="speaker_avatar{{ n }}" id="avatar-github-{{ n }}" ng-click="selectGitImage(n)" ng-disabled="!speakers[n].git_image_url" ng-checked="speakers[n].git_image_selected"/> Github profile image
+                      <input type="radio" id="avatar-github-{{ n }}" ng-click="selectGitImage(n)" ng-disabled="!speakers[n].git_image_url" ng-checked="speakers[n].git_image_selected"/> Github profile image
                     </label>
                   </li>
                   <li> 
                     <label for="avatar-none-{{ n }}">
-                      <input type="radio" name="speaker_avatar{{ n }}" id="avatar-none-{{ n }}"  ng-click="deselectImage(n)" ng-checked="!speakers[n].image_url"/> No profile image
+                      <input type="radio" id="avatar-none-{{ n }}"  ng-click="deselectImage(n)" ng-checked="!speakers[n].image_url"/> No profile image
                     </label>
                   </li>
                 </ul>
                 <input id="speaker_image{{ n }}" name="speaker_image{{ n }}" type="hidden" value="{{ getImageURL(n) }}"/>                
               </div>    
-              <div class="form-group col-sm-12 ">                           
+              <div class="form-group col-sm-12 ">
                 <ul class="avatar-options">
-                  <li>                    
-                    <label for="first-{{ n }}">
-                      <input id="first-{{ n }}" type="checkbox"/>
+                  <li>
+                    <label for="speaker_first_time{{ n }}">
+                      <input id="speaker_first_time{{ n }}" name="speaker_first_time{{ n }}" type="checkbox"/>
                       Are you a first time speaker at a Plone Conference?
                     </label> 
                   </li>
                   <li>
-                    <label for="buddy-{{ n }}"> 
-                      <input id="buddy-{{ n }}" type="checkbox"/>
+                    <label for="speaker_buddy{{ n }}">
+                      <input id="speaker_buddy{{ n }}" name="speaker_buddy{{ n }}" type="checkbox"/>
                       Would you like to be brought into contact with a buddy or buddies who would be willing to help you prepare your talk?
                     </label>
-                  </li>                  
-                </ul>                
+                  </li>
+                </ul>
                 <p class="form-explanation">We value a wide diversity in both talks and speakers, and recognize that it can be hard or even scary to submit a talk if you have not done so before. A diverse group of people is willing to work with you to get your proposal, and your talk, to be the best it can be. So feel empowered to share your experiences with Plone and the wider Plone community and ecosystem. From how to run a consultancy, to working with various audiences and communities, there is more to Plone than just code or theming&hellip;</p>
-                <input id="speaker_image{{ n }}" name="speaker_image{{ n }}" type="hidden" value="{{ getImageURL(n) }}"/>                
-              </div>          
+              </div>
             </fieldset>
-            <div class="form-toolbar">              
+            <div class="form-toolbar">
               <button type="reset" class="btn btn-link pull-left" ng-click="talk={}; speakers=[]"> Reset talk details </button>
-              <div class="button-list pull-right">                         
+              <div class="button-list pull-right">
                 <button type="button" class="btn btn-default" ng-click="increaseNumberOfSpeakers()">Add another speaker{{n}}</button>
-                <button type="submit" class="btn btn-primary" ng-disabled="!submitTalk.$valid"> Submit talk </button>
+                <button type="submit" class="btn btn-primary" ng-disabled="!submitTalk.$valid || audienceRequired()"> Submit talk </button>
               </div>
           </form>
         </div>
