@@ -3,8 +3,9 @@
   i18n:domain="eea">
 
 <body>
-	<section metal:fill-slot="content-core">
-		<h2> Thank you for your submission </h2>
+	<section metal:fill-slot="content-core" class="text-center">
+		<h2>Thank you</h2>
+		<p>You will receive an email to confirm that the talk has been submitted.</p>
 	</section>
 </body>
 </html>
