@@ -10,8 +10,16 @@
      <action type="plone.actions.Mail">
       <property name="source"/>
       <property
-         name="message">Your talk ${stalk_title} has been submitted for approval.</property>
-      <property name="subject">Submission confirmation</property>
+         name="message">Hi,
+
+Thank you for submitting your talk proposal for the Plone Conference 2015.
+We look forward to reviewing your information!
+We will come back to you in the following weeks with an answer!
+
+Sincerely,
+Plone Conference 2015 team
+</property>
+      <property name="subject">[Plone Conference 2015] Talk submitted</property>
       <property name="recipients">${stalk_speaker_email}</property>
       <property name="exclude_actor">False</property>
      </action>
