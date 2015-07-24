@@ -51,7 +51,7 @@ class SubmitTalk(BrowserView):
 
             if form['speaker_image' + str(index)]:
                 speakers[index].image = NamedBlobImage(
-                            filename=u"%s image" % form['speaker_name' + str(index)],
+                            filename=form['speaker_name' + str(index)].decode('utf-8') + u' image',
                             data=requests.get(form['speaker_image' + str(index)]).content)
 
         return speakers
