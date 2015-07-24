@@ -127,7 +127,7 @@
                 <label class="preview-label">Please select an avatar</label>
                 <div class="avatar-preview">
                   <img ng-src="{{ getImageURL(n) }}" ng-show="getImageURL(n)"/>
-                  <img ng-src="{{ default_image_url }}" ng-show="!getImageURL(n)"/>
+                  <img style="border: 2px solid #38133F; border-radius: .25em;" ng-src="{{ default_image_url }}" ng-show="!getImageURL(n)"/>
                 </div>
                 <ul class="avatar-options">
                   <li>
