@@ -31,7 +31,7 @@
               </li>
               <li tal:condition="speaker/linkedin">
                 <a href="linkedin link" tal:attributes="href speaker/linkedin">
-                  Linkedin <span tal:content="speaker/name">Speaker Name</span>
+                  Linkedin <span tal:content="speaker/title">Speaker Name</span>
                 </a>
               </li>
             </ul>
