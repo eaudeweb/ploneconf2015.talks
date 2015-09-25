@@ -2,11 +2,11 @@
   metal:use-macro="here/main_template/macros/master"
   i18n:domain="eea">
 <body>
-<div metal:fill-slot="content-core">
+<div metal:fill-slot="content-core" tal:define="isAnon context/@@plone_portal_state/anonymous">
 
   <div tal:condition="python: view.speakers_and_talk">
     <div tal:repeat="speakers_and_talk view/speakers_and_talk" >
-      <div tal:define="speakers python: speakers_and_talk[0]; talk python: speakers_and_talk[1];" class="talk"> 
+      <div tal:define="speakers python: speakers_and_talk[0]; talk python: speakers_and_talk[1];" class="talk">
         <h3 tal:content="talk/title">Title</h3>
         <p tal:content="talk/description"> Summary </p>
         <!-- repeat speakers view -->
@@ -15,27 +15,32 @@
             <img src="speaker image" tal:attributes="src python: speaker.absolute_url() + '/@@images/image'">
           </div>
           <div class="speaker-details" >
-            <h4 tal:content="speaker/title">Speaker Name </h4>
-            <p tal:content="speaker/email"> Speaker Email </p>
-            <p tal:content="speaker/country"> Speaker Country </p> 
+            <h4>
+              <a tal:attributes="href speaker/absolute_url" tal:content="speaker/title">Speaker Name</a>
+              <span tal:content="string:(${speaker/country})"> Speaker Country </span>
+            </h4>
+            <p tal:content="speaker/email" tal:condition="not:isAnon"> Speaker Email </p>
             <ul class="list-inline">
-              <li tal:condition="speaker/twitter">
-                <a href="twitter link" tal:attributes="href python: 'https://twitter.com/' + speaker.twitter">
-                  Twitter @<span tal:content="speaker/twitter"> Speaker Twitter Account </span>
+              <li tal:define="twitter python:view.twitter(speaker.twitter)" tal:condition="twitter">
+                <span class="icon icon-twitter"></span>
+                <a href="twitter link" tal:attributes="href string:https://twitter.com/$twitter">
+                  <span tal:content="twitter"> Speaker Twitter Account </span>
                 </a>
               </li>
-              <li tal:condition="speaker/git">
-                <a href="git link" tal:attributes="href python: 'https://github.com/' + speaker.git">
-                  Github <span tal:content="speaker/git">Speaker GitHub Account</span>
+              <li tal:define="github python:view.github(speaker.git)" tal:condition="github">
+                <span class="icon icon-github"></span>
+                <a tal:attributes="href string:https://github.com/$github">
+                  <span tal:content="speaker/git">Speaker GitHub Account</span>
                 </a>
               </li>
-              <li tal:condition="speaker/linkedin">
+              <li tal:condition="python:not isAnon and speaker.linkedin">
+                <span class="icon icon-linkedin"></span>
                 <a href="linkedin link" tal:attributes="href speaker/linkedin">
-                  Linkedin <span tal:content="speaker/title">Speaker Name</span>
+                  <span tal:content="speaker/title">Speaker Name</span>
                 </a>
               </li>
             </ul>
-          </div> 
+          </div>
         </div>
       </div>
     </div>

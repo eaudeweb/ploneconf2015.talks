@@ -24,7 +24,27 @@ class Speaker(BrowserView):
 
     @property
     def twitter(self):
-        return self.context.twitter
+        value = self.context.twitter
+        if not value:
+            return u''
+
+        if value.startswith('http'):
+            value = value.split('/')[-1]
+
+        value = value.strip('@')
+        return value
+
+    @property
+    def github(self):
+        value = self.context.git
+        if not value:
+            return u''
+
+        if value.startswith('http'):
+            value = value.split('/')[-1]
+
+        value = value.strip('@')
+        return value
 
     @property
     def git(self):
@@ -36,7 +56,9 @@ class Speaker(BrowserView):
 
     @property
     def image(self):
-        return self.context.absolute_url() + '/@@images/image/'
+        if self.context.image:
+            return self.context.absolute_url() + '/@@images/image/'
+        return ''
 
     def __call__(self, **kwargs):
         return self.index()
