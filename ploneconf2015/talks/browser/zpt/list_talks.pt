@@ -4,6 +4,8 @@
 <body>
 <div metal:fill-slot="content-core" tal:define="isAnon context/@@plone_portal_state/anonymous">
 
+  <tal:note tal:condition="exists:here/talks-note-header" tal:replace="structure here/talks-note-header" />
+
   <div tal:condition="python: view.speakers_and_talk">
     <div tal:repeat="speakers_and_talk view/speakers_and_talk" >
       <div tal:define="speakers python: speakers_and_talk[0]; talk python: speakers_and_talk[1];" class="talk">
@@ -48,6 +50,8 @@
   <div tal:condition="python: not view.speakers_and_talk">
     <h3> There are no confirmed talks at the moment. </h3>
   </div>
+
+  <tal:note tal:condition="exists:here/talks-note-footer" tal:replace="structure here/talks-note-footer" />
 
 </div>
 </body>
