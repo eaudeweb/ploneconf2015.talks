@@ -2,5 +2,7 @@
 <object name="portal_types" meta_type="Plone Types Tool">
   <object name="talk" meta_type="Dexterity FTI"/>
   <object name="speaker" meta_type="Dexterity FTI"/>
+  <object name="agenda" meta_type="Dexterity FTI"/>
+  <object name="agendaday" meta_type="Dexterity FTI"/>
+  <object name="break" meta_type="Dexterity FTI"/>
 </object>
-

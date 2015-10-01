@@ -5,9 +5,37 @@ from zope.interface import Interface
 from plone.namedfile import field as namedfile
 from plone.supermodel import model
 
+
 class ITalkStorage(Interface):
     """ Marker interface for talks storage
     """
+
+
+class IAgenda(Interface):
+    """ Marker interface for Agenda
+    """
+
+
+class IAgendaDay(Interface):
+    """ Marker interface for Agenda Day
+    """
+    day = schema.Date(
+        "Day"
+    )
+
+
+class IBreak(Interface):
+    """ Break
+    """
+    start = schema.Datetime(
+        title=u"Start",
+        required=False
+    )
+
+    end = schema.Datetime(
+        title=u"End",
+        required=False
+    )
 
 
 class ITalk(model.Schema):
@@ -23,6 +51,16 @@ class ITalk(model.Schema):
     room = schema.TextLine(
         title=u"Room",
         default=u"",
+        required=False
+    )
+
+    start = schema.Datetime(
+        title=u"Start",
+        required=False
+    )
+
+    end = schema.Datetime(
+        title=u"End",
         required=False
     )
 
