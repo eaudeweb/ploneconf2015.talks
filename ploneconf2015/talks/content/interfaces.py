@@ -10,34 +10,6 @@ class ITalkStorage(Interface):
     """ Marker interface for talks storage
     """
 
-
-class IAgenda(Interface):
-    """ Marker interface for Agenda
-    """
-
-
-class IAgendaDay(Interface):
-    """ Marker interface for Agenda Day
-    """
-    day = schema.Date(
-        "Day"
-    )
-
-
-class IBreak(Interface):
-    """ Break
-    """
-    start = schema.Datetime(
-        title=u"Start",
-        required=False
-    )
-
-    end = schema.Datetime(
-        title=u"End",
-        required=False
-    )
-
-
 class ITalk(model.Schema):
     """ Talk schema
     """
@@ -46,22 +18,6 @@ class ITalk(model.Schema):
         value_type=schema.TextLine(title=u"Target Audience Tag",
                                    default=u""),
         required=True
-    )
-
-    room = schema.TextLine(
-        title=u"Room",
-        default=u"",
-        required=False
-    )
-
-    start = schema.Datetime(
-        title=u"Start",
-        required=False
-    )
-
-    end = schema.Datetime(
-        title=u"End",
-        required=False
     )
 
 
@@ -121,5 +77,38 @@ class ISpeaker(model.Schema):
         title=u"Buddy",
         description=u"",
         default=False,
+        required=False
+    )
+
+
+class IAgenda(Interface):
+    """ Marker interface for Agenda
+    """
+
+
+class IAgendaDay(Interface):
+    """ Marker interface for Agenda Day
+    """
+    day = schema.Date(
+        title=u"Day"
+    )
+
+
+class IAgendaSlot(Interface):
+    """ Agenda slot
+    """
+    start = schema.Datetime(
+        title=u"Start",
+        required=False
+    )
+
+    end = schema.Datetime(
+        title=u"End",
+        required=False
+    )
+
+    room = schema.TextLine(
+        title=u"Room",
+        default=u"",
         required=False
     )

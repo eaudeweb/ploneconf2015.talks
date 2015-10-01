@@ -4,5 +4,5 @@
   <object name="speaker" meta_type="Dexterity FTI"/>
   <object name="agenda" meta_type="Dexterity FTI"/>
   <object name="agendaday" meta_type="Dexterity FTI"/>
-  <object name="break" meta_type="Dexterity FTI"/>
+  <object name="agendaslot" meta_type="Dexterity FTI"/>
 </object>
