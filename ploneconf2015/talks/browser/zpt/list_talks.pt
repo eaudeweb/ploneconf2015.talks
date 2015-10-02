@@ -9,7 +9,7 @@
   <div tal:condition="python: view.speakers_and_talk">
     <div tal:repeat="speakers_and_talk view/speakers_and_talk" class="talk">
       <div tal:define="speakers python: speakers_and_talk[0]; talk python: speakers_and_talk[1];">
-        <h3 class="talk-title" tal:content="talk/title">Title</h3>
+        <h3 class="talk-title" tal:content="talk/title" tal:attributes="id talk/getId">Title</h3>
         <div class="talk-description">
           <div tal:content="talk/description">
             Summary
@@ -30,7 +30,7 @@
             <p tal:content="speaker/email" tal:condition="not:isAnon"> Speaker Email </p>
             <ul class="speaker-social">
               <li tal:define="twitter python:view.twitter(speaker.twitter)" tal:condition="twitter">
-                <a href="twitter link" 
+                <a href="twitter link"
                    tal:attributes="href string:https://twitter.com/$twitter"
                    tal:content="string:twitter.com/$twitter">
                   Speaker Twitter Account

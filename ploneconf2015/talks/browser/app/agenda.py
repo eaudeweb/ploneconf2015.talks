@@ -1,7 +1,9 @@
 """ Agenda controllers
 """
-
+import logging
+from zope.component.hooks import getSite
 from Products.Five.browser import BrowserView
+logger = logging.getLogger('ploneconf2015.talks')
 
 class Agenda(BrowserView):
     """ Agenda
@@ -52,9 +54,15 @@ class AgendaDay(BrowserView):
     def link(self, item):
         """ Get item link
         """
+        url = ''
         if item.relatedItems:
-            return item.relatedItems[0].to_object.absolute_url()
-        return ''
+            site = getSite()
+            rel = item.relatedItems[0].to_object
+            try:
+                url = site['talks'].absolute_url() + '#%s' % rel.getId()
+            except Exception, err:
+                logger.exception(err)
+        return url
 
     def audience(self, item):
         """ Get item link
