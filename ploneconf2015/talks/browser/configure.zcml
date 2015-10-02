@@ -50,6 +50,30 @@
         permission="zope2.View"
         />
 
+    <browser:page
+        for="plone.dexterity.interfaces.IDexterityContent"
+        name="agenda-view"
+        template="zpt/agenda.pt"
+        class=".app.agenda.Agenda"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        for="plone.dexterity.interfaces.IDexterityContent"
+        name="agenda-day-view"
+        template="zpt/agenda_day.pt"
+        class=".app.agenda.AgendaDay"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        for="plone.dexterity.interfaces.IDexterityContent"
+        name="agenda-slot-view"
+        template="zpt/agenda_slot.pt"
+        class=".app.agenda.AgendaSlot"
+        permission="zope2.View"
+        />
+
     <browser:resourceDirectory
         name="ploneconf2015.talks.js"
         directory="./js"

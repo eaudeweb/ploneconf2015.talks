@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+  metal:use-macro="here/main_template/macros/master"
+  i18n:domain="plone">
+
+<body>
+
+<div metal:fill-slot="content-core">
+  <ul class="list-slots">
+     <li tal:repeat="item view/listing">
+       <div tal:condition="python:isinstance(item, (str, unicode))">
+         <strong tal:content="item" />
+       </div>
+       <div tal:condition="python:not isinstance(item, (str, unicode))">
+         <div tal:define="link python:view.link(item)">
+           <span class="what">
+             <a tal:omit-tag="not:link" tal:attributes="href link" tal:content="python:view.title(item)" />
+           </span>
+           <span class="where" style="color: #c3b8c5" tal:content="item/room" />
+           <div style="color: #f15a24">
+             <tal:audience tal:repeat="aud python:view.audience(item)">
+              <span class="audience" tal:content="aud" />
+             </tal:audience>
+           </div>
+         </div>
+       </div>
+     </li>
+  </ul>
+</div>
+</body>
+</html>

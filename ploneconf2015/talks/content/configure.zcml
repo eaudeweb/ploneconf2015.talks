@@ -3,5 +3,8 @@
   i18n_domain="ploneconf2015">
 
   <interface interface="ploneconf2015.talks.content.interfaces.ITalkStorage" />
+  <interface interface="ploneconf2015.talks.content.interfaces.IAgenda" />
+  <interface interface="ploneconf2015.talks.content.interfaces.IAgendaDay" />
+  <interface interface="ploneconf2015.talks.content.interfaces.IAgendaSlot" />
 
 </configure>
