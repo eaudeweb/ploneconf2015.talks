@@ -5,6 +5,30 @@
 <body>
 
 <div metal:fill-slot="content-core">
+ <ul class="list-days">
+   <tal:trainings tal:repeat="item view/trainings">
+     <li tal:attributes="class python:'current' if view.current(item) else None">
+       <div  class="training">
+         <a tal:content="item/Title" tal:attributes="href item/absolute_url"/>
+       </div>
+     </li>
+   </tal:trainings>
+   <tal:conferences tal:repeat="item view/conferences">
+     <li tal:attributes="class python:'current' if view.current(item) else None">
+      <div class="conference">
+         <a tal:content="item/Title" tal:attributes="href item/absolute_url"/>
+       </div>
+     </li>
+   </tal:conferences>
+   <tal:sprints tal:repeat="item view/sprints">
+     <li tal:attributes="class python:'current' if view.current(item) else None">
+        <div class="sprint">
+         <a tal:content="item/Title" tal:attributes="href item/absolute_url"/>
+       </div>
+     </li>
+   </tal:sprints>
+ </ul>
+
   <div class="list-slots">
 
    <div tal:repeat="item view/listing">
@@ -18,9 +42,9 @@
        <div class="slot" tal:define="link python:view.link(item)">
          <span class="slot-what">
            <a tal:omit-tag="not:link" tal:attributes="href link" tal:content="python:view.title(item)" />
-           
+
          </span>
-         
+
          <div>
            <small class="slot-where" tal:content="item/room" />
            <ul class="slot-audience">

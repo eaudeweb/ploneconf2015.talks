@@ -8,30 +8,67 @@ logger = logging.getLogger('ploneconf2015.talks')
 class Agenda(BrowserView):
     """ Agenda
     """
-    def trainings(self):
+    def trainings(self, context=None):
         """ Trainings
         """
-        for item in self.context.objectValues():
+        if not context:
+            context = self.context
+
+        for item in context.objectValues():
             if 'training' in item.getId():
                 yield item
 
-    def conferences(self):
-        """ Trainings
+    def conferences(self, context=None):
+        """ Conf days
         """
-        for item in self.context.objectValues():
+        if not context:
+            context = self.context
+
+        for item in context.objectValues():
             if 'conference' in item.getId():
                 yield item
 
-    def sprints(self):
-        """ Trainings
+    def sprints(self, context=None):
+        """ Sprints
         """
-        for item in self.context.objectValues():
+        if not context:
+            context = self.context
+
+        for item in context.objectValues():
             if 'sprint' in item.getId():
                 yield item
 
-class AgendaDay(BrowserView):
+class AgendaDay(Agenda):
     """ Agenda Day
     """
+    def trainings(self, context=None):
+        """ Trainings
+        """
+        if not context:
+            context = self.context.getParentNode()
+        return super(AgendaDay, self).trainings(context=context)
+
+    def conferences(self, context=None):
+        """ Trainings
+        """
+        if not context:
+            context = self.context.getParentNode()
+        return super(AgendaDay, self).conferences(context=context)
+
+    def sprints(self, context=None):
+        """ Sprints
+        """
+        if not context:
+            context = self.context.getParentNode()
+        return super(AgendaDay, self).sprints(context=context)
+
+    def current(self, item):
+        """ Is current item?
+        """
+        if self.context.getId() == item.getId():
+            return True
+        return False
+
     def listing(self):
         """ List items
         """
