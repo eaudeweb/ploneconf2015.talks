@@ -44,8 +44,18 @@
            <a tal:omit-tag="not:link" tal:attributes="href link" tal:content="python:view.title(item)" />
 
          </span>
+         
+         <ul>
+           <li>
+              <span>Speaker 1</span>
+           </li>
+           <li>
+              <span>Speaker 2</span>
+           </li>
+         </ul>
 
          <div>
+
             <span tal:condition="item/room">
               Room: 
               <small class="slot-where" tal:content="item/room" />
