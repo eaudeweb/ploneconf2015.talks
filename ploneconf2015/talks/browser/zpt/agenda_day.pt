@@ -5,26 +5,35 @@
 <body>
 
 <div metal:fill-slot="content-core">
-  <ul class="list-slots">
-     <li tal:repeat="item view/listing">
-       <div tal:condition="python:isinstance(item, (str, unicode))">
-         <strong tal:content="item" />
-       </div>
-       <div tal:condition="python:not isinstance(item, (str, unicode))">
-         <div tal:define="link python:view.link(item)">
-           <span class="what">
-             <a tal:omit-tag="not:link" tal:attributes="href link" tal:content="python:view.title(item)" />
-           </span>
-           <span class="where" style="color: #c3b8c5" tal:content="item/room" />
-           <div style="color: #f15a24">
-             <tal:audience tal:repeat="aud python:view.audience(item)">
-              <span class="audience" tal:content="aud" />
-             </tal:audience>
-           </div>
+  <div class="list-slots">
+
+   <div tal:repeat="item view/listing">
+
+     <tal:block condition="python:isinstance(item, (str, unicode))">
+       <div class="slot-when"
+            tal:content="item" />
+     </tal:block>
+
+     <tal:block condition="python:not isinstance(item, (str, unicode))">
+       <div class="slot" tal:define="link python:view.link(item)">
+         <span class="slot-what">
+           <a tal:omit-tag="not:link" tal:attributes="href link" tal:content="python:view.title(item)" />
+           
+         </span>
+         
+         <div>
+           <small class="slot-where" tal:content="item/room" />
+           <ul class="slot-audience">
+             <li tal:repeat="aud python:view.audience(item)">
+               <span class="audience" tal:content="aud" />
+             </li>
+           </ul>
          </div>
        </div>
-     </li>
-  </ul>
+     </tal:block>
+
+   </div>
+  </div>
 </div>
 </body>
 </html>
