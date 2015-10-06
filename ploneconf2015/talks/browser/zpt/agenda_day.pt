@@ -46,12 +46,19 @@
          </span>
 
          <div>
-           <small class="slot-where" tal:content="item/room" />
-           <ul class="slot-audience">
-             <li tal:repeat="aud python:view.audience(item)">
-               <span class="audience" tal:content="aud" />
-             </li>
-           </ul>
+            <span tal:condition="item/room">
+              Room: 
+              <small class="slot-where" tal:content="item/room" />
+            </span>
+
+            <span tal:condition="python:view.audience(item)">
+              Target audience:
+              <ul class="slot-audience">
+                <li tal:repeat="aud python:view.audience(item)">
+                  <span class="audience" tal:content="aud" />
+                </li>
+              </ul>
+            </span>
          </div>
        </div>
      </tal:block>
