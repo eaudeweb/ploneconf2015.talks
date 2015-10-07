@@ -108,6 +108,52 @@ class AgendaDay(Agenda):
             return item.relatedItems[0].to_object.target_audience
         return []
 
+    def speakers(self, item):
+        """ Get item authors
+        """
+        if not item.relatedItems:
+            return
+
+        talk = item.relatedItems[0].to_object
+        if not talk.relatedItems:
+            return
+
+        for speaker in talk.relatedItems:
+            yield speaker.to_object
+
+    def start(self, item, delimiter=':'):
+        """ Start time
+        """
+        hour = item.start.hour
+        minute = item.start.minute
+        return u"%d%s%.2d" % (hour, delimiter, minute)
+
+    def end(self, item, delimiter=':'):
+        """ End time
+        """
+        hour = item.end.hour
+        minute = item.end.minute
+        return u"%d%s%.2d" % (hour, delimiter, minute)
+
+    def slot(self, item):
+        """ Slot type
+        """
+        stype = 'single'
+        start = item.start
+        count = 0
+        for talk in self.listing():
+            if not hasattr(talk, 'start'):
+                continue
+
+            if talk.start == start:
+                count += 1
+            elif talk.start > start:
+                break
+
+        if count > 1:
+            return 'multiple'
+        return 'single'
+
 class AgendaSlot(BrowserView):
     """ Agenda Slot
     """
