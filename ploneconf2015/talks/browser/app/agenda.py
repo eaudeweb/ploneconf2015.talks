@@ -115,7 +115,7 @@ class AgendaDay(Agenda):
             return
 
         talk = item.relatedItems[0].to_object
-        if not talk.relatedItems:
+        if not getattr(talk, 'relatedItems', None):
             return
 
         for speaker in talk.relatedItems:
