@@ -6,17 +6,17 @@
 
 <div metal:fill-slot="content-core">
  <ul class="list-days">
-   <li tal:repeat="item view/trainings">
+   <li tal:repeat="item view/trainings" class="btn btn-outline">
      <div  class="training">
        <a tal:content="item/Title" tal:attributes="href item/absolute_url"/>
      </div>
    </li>
-   <li tal:repeat="item view/conferences">
+   <li tal:repeat="item view/conferences" class="btn btn-outline">
     <div class="conference">
        <a tal:content="item/Title" tal:attributes="href item/absolute_url"/>
      </div>
    </li>
-   <li tal:repeat="item view/sprints">
+   <li tal:repeat="item view/sprints" class="btn btn-outline">
       <div class="sprint">
        <a tal:content="item/Title" tal:attributes="href item/absolute_url"/>
      </div>

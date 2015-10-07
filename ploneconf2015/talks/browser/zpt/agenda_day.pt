@@ -4,24 +4,42 @@
 
 <body>
 
+<div metal:fill-slot="content-title">
+  <h1 class="documentFirstHeading">
+    <tal:title tal:content="python:context.getParentNode().title_or_id() + ':'" />
+    <tal:text tal:condition="python:'training' in context.getId()">
+      Trainings
+    </tal:text>
+    <tal:text tal:condition="python:'conf' in context.getId()">
+      Conference
+    </tal:text>
+    <tal:text tal:condition="python:'sprint' in context.getId()">
+      Sprints
+    </tal:text>
+  </h1>
+</div>
+
 <div metal:fill-slot="content-core">
  <ul class="list-days">
    <tal:trainings tal:repeat="item view/trainings">
-     <li tal:attributes="class python:'current' if view.current(item) else None">
+     <li class="btn btn-outline"
+       tal:attributes="class python:'btn btn-outline current' if view.current(item) else 'btn btn-outline'">
        <div  class="training">
          <a tal:content="item/Title" tal:attributes="href item/absolute_url"/>
        </div>
      </li>
    </tal:trainings>
    <tal:conferences tal:repeat="item view/conferences">
-     <li tal:attributes="class python:'current' if view.current(item) else None">
+     <li class="btn btn-outline"
+       tal:attributes="class python:'btn btn-outline current' if view.current(item) else 'btn btn-outline'">
       <div class="conference">
          <a tal:content="item/Title" tal:attributes="href item/absolute_url"/>
        </div>
      </li>
    </tal:conferences>
    <tal:sprints tal:repeat="item view/sprints">
-     <li tal:attributes="class python:'current' if view.current(item) else None">
+     <li class="btn btn-outline"
+        tal:attributes="class python:'btn btn-outline current' if view.current(item) else 'btn btn-outline'">
         <div class="sprint">
          <a tal:content="item/Title" tal:attributes="href item/absolute_url"/>
        </div>
@@ -31,15 +49,17 @@
 
   <div class="list-slots">
 
-   <div tal:repeat="item view/listing">
+   <tal:listing tal:repeat="item view/listing">
+   <div tal:define="is_time python:isinstance(item, (str, unicode))"
+        tal:attributes="class python:'list-slot' if not is_time else None">
 
-     <tal:block condition="python:isinstance(item, (str, unicode))">
+     <tal:block condition="is_time">
        <div class="slot-when"
             tal:content="item" />
      </tal:block>
 
      <tal:block condition="python:not isinstance(item, (str, unicode))">
-       <div class="slot"tal:define="link python:view.link(item);"
+       <div class="slot" tal:define="link python:view.link(item);"
          tal:attributes="
            data-start python:view.start(item);
            data-end python:view.end(item);
@@ -49,7 +69,7 @@
            <a tal:omit-tag="not:link" tal:attributes="href link" tal:content="python:view.title(item)" />
          </span>
 
-         <ul>
+         <ul class="speakers">
            <li tal:repeat="speaker python:view.speakers(item)">
               <span tal:content="speaker/title_or_id">Speaker Name</span>
            </li>
@@ -57,24 +77,24 @@
 
          <div>
 
-            <span tal:condition="item/room">
-              Room:
+            <div tal:condition="item/room" tal:attributes="class python:'room room-' + item.room.lower().replace(' ', '-')">
+              <small>Room:</small>
               <small class="slot-where" tal:content="item/room" />
-            </span>
+            </div>
 
-            <span tal:condition="python:view.audience(item)">
-              Target audience:
+            <div tal:condition="python:view.audience(item)">
+              <span class="target-audience">Target audience:</span>
               <ul class="slot-audience">
                 <li tal:repeat="aud python:view.audience(item)">
                   <span class="audience" tal:content="aud" />
                 </li>
               </ul>
-            </span>
+            </div>
          </div>
        </div>
      </tal:block>
-
    </div>
+   </tal:listing>
   </div>
 </div>
 </body>
