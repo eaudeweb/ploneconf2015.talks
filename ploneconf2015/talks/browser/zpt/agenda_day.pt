@@ -6,6 +6,10 @@
 
 <div metal:fill-slot="content-title">
   <h1 class="documentFirstHeading">
+    <a tal:attributes="href string:${context/portal_url}/talks/agenda.pdf"
+      href="/talks/agenda.pdf" class="download">
+      <span class="icon icon-pdf"></span>
+    </a>
     <tal:title tal:content="python:context.getParentNode().title_or_id() + ':'" />
     <tal:text tal:condition="python:'training' in context.getId()">
       Trainings
