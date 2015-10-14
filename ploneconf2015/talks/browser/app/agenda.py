@@ -97,8 +97,8 @@ class AgendaDay(Agenda):
             rel = item.relatedItems[0].to_object
             try:
                 url = rel.absolute_url()
-                if 'Talks' in url:
-                    url = site['talks'].absolute_url() + '#%s' % rel.getId()
+                # if 'Talks' in url:
+                #     url = site['talks'].absolute_url() + '#%s' % rel.getId()
             except Exception, err:
                 logger.exception(err)
         return url

@@ -4,30 +4,31 @@
 
 <body>
 
-<div metal:fill-slot="content-core">
-<section>
+<div metal:fill-slot="content-core" class="talk">
+
   <div tal:condition="view/image" class="speaker-avatar">
     <img src="speaker image" tal:attributes="src view/image">
   </div>
 
   <p tal:content="structure view/summary"> Speaker Email </p>
 
-  <ul class="list-inline">
-    <li tal:define="twitter python:view.twitter" tal:condition="twitter">
-      <span class="icon icon-twitter"></span>
-      <a href="twitter link" tal:attributes="href string:https://twitter.com/$twitter">
-        <span tal:content="twitter"> Speaker Twitter Account </span>
-      </a>
-    </li>
-    <li tal:condition="view/git">
-      <span class="icon icon-github"></span>
-      <a href="git link" tal:attributes="href python: 'https://github.com/' + view.git">
-        <span tal:content="view/git">Speaker GitHub Account</span>
-      </a>
-    </li>
-  </ul>
-
-<section>
+  <div class="speaker-details">
+    <ul class="speaker-social">
+      <li tal:define="twitter python:view.twitter" tal:condition="twitter">
+        <a href="twitter link"
+           tal:attributes="href string:https://twitter.com/$twitter"
+           tal:content="string:twitter.com/$twitter">
+          Speaker Twitter Account
+        </a>
+      </li>
+      <li tal:define="github python:view.github" tal:condition="github">
+        <a tal:attributes="href string:https://github.com/$github"
+           tal:content="string:github.com/$github">
+          Speaker GitHub Account
+        </a>
+      </li>
+    </ul>
+  </div>
 
 </div>
 </body>

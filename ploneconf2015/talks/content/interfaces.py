@@ -20,6 +20,18 @@ class ITalk(model.Schema):
         required=True
     )
 
+    slides = schema.TextLine(
+        title=u"Slides",
+        default=u"",
+        required=False
+    )
+
+    video = schema.TextLine(
+        title=u"Video",
+        default=u"",
+        required=False
+    )
+
 
 class ISpeaker(model.Schema):
     """ Speaker schema

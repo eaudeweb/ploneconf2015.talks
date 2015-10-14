@@ -44,6 +44,14 @@
 
     <browser:page
         for="plone.dexterity.interfaces.IDexterityContent"
+        name="talk-view"
+        template="zpt/talk.pt"
+        class=".app.talk.Talk"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        for="plone.dexterity.interfaces.IDexterityContent"
         name="speaker-view"
         template="zpt/speaker.pt"
         class=".app.speaker.Speaker"

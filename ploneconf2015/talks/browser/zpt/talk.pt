@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+  metal:use-macro="here/main_template/macros/master"
+  i18n:domain="eea">
+
+<body>
+
+<div metal:fill-slot="content-core" class="talk">
+
+  <div tal:define="speakers view/speakers">
+
+    <div class="talk-d-description">
+      <div tal:content="context/description">
+        Summary
+      </div>
+    </div>
+
+    <!-- repeat speakers view -->
+    <div class="speaker" tal:repeat="speaker speakers">
+      <div tal:condition="python: speaker.image" class="speaker-avatar">
+        <img src="speaker image" tal:attributes="src python: speaker.absolute_url() + '/@@images/image'">
+      </div>
+      <div class="speaker-details" >
+        <h4 class="speaker-name">
+          <a tal:attributes="href speaker/absolute_url" tal:content="speaker/title">Speaker Name</a>
+          from
+          <span tal:content="string:${speaker/country}"> Speaker Country
+          </span>
+        </h4>
+
+        <ul class="speaker-social">
+          <li tal:define="twitter python:view.twitter(speaker)" tal:condition="twitter">
+            <a href="twitter link"
+               tal:attributes="href string:https://twitter.com/$twitter"
+               tal:content="string:twitter.com/$twitter">
+              Speaker Twitter Account
+            </a>
+          </li>
+          <li tal:define="github python:view.github(speaker)" tal:condition="github">
+            <a tal:attributes="href string:https://github.com/$github"
+               tal:content="string:github.com/$github">
+              Speaker GitHub Account
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="talk-frames">
+      <div tal:condition="view/slides" class="talk-slides">
+        <a tal:attributes="href view/slides">Talk slides</a>
+      </div>
+
+      <div tal:condition="view/video" class="talk-video">
+        <a tal:attributes="href view/video">Video Recording</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
