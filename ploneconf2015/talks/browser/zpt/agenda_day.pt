@@ -28,25 +28,25 @@
    <tal:trainings tal:repeat="item view/trainings">
      <li class="btn btn-outline"
        tal:attributes="class python:'btn btn-outline current' if view.current(item) else 'btn btn-outline'">
-       <div  class="training">
+       <h2 class="training" tal:omit-tag="python: not view.current(item)">
          <a tal:content="item/Title" tal:attributes="href item/absolute_url"/>
-       </div>
+       </h2>
      </li>
    </tal:trainings>
    <tal:conferences tal:repeat="item view/conferences">
      <li class="btn btn-outline"
        tal:attributes="class python:'btn btn-outline current' if view.current(item) else 'btn btn-outline'">
-      <div class="conference">
+      <h2 class="conference" tal:omit-tag="python: not view.current(item)">
          <a tal:content="item/Title" tal:attributes="href item/absolute_url"/>
-       </div>
+       </h2>
      </li>
    </tal:conferences>
    <tal:sprints tal:repeat="item view/sprints">
      <li class="btn btn-outline"
         tal:attributes="class python:'btn btn-outline current' if view.current(item) else 'btn btn-outline'">
-        <div class="sprint">
+        <h2 class="sprint" tal:omit-tag="python: not view.current(item)">
          <a tal:content="item/Title" tal:attributes="href item/absolute_url"/>
-       </div>
+       </h2>
      </li>
    </tal:sprints>
  </ul>
@@ -58,7 +58,7 @@
         tal:attributes="class python:'list-slot' if not is_time else None">
 
      <tal:block condition="is_time">
-       <div class="slot-when"
+       <h3 class="slot-when"
             tal:content="item" />
      </tal:block>
 
